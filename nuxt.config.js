@@ -36,7 +36,7 @@ export default {
     '@nuxtjs/vuetify',
     // https://github.com/nuxt-community/analytics-module
     ['@nuxtjs/google-analytics', {
-      id: 'G-LQ1TG49506'
+      id: 'UA-179945653-1'
     }],
   ],
 
