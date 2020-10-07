@@ -9,13 +9,16 @@ export default {
 
   // Global page headers (https://go.nuxtjs.dev/config-head)
   head: {
+    htmlAttrs: {
+      lang="pt-br",
+    },
     titleTemplate: 'Read My Star - %s',
     title: 'Write My Story',
-    content: 'A forma mais simples e divertida de aprender sobre seu mapa astral.',
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { hid: 'description', name: 'description', content: '' },
+      { hid: 'description', name: 'description',  content: 'A forma mais simples e divertida de aprender sobre seu mapa astral' },
+      { hid: 'keyword', name: 'keyword', content: 'astrologia, mapa astral, autoconhecimento, signos, personagens, história, astro' },
     ],
     link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
   },
