@@ -580,14 +580,6 @@ export default {
       },
 
       planets: {
-        Asc: {
-          name: 'Ascendente',
-          symbol: 'ᴬˢᶜ',
-          sign: '',
-          house: '',
-          chars: ['A Imagem', 'O Início'],
-          char: { name: '', tribe: '', place: '' },
-        },
         Sun: {
           name: 'Sol',
           symbol: '☉',
@@ -662,6 +654,14 @@ export default {
           sign: '',
           house: '',
           chars: ['o caminho da evolução', 'o motivo da existência'],
+          char: { name: '', tribe: '', place: '' },
+        },
+        Asc: {
+          name: 'Ascendente',
+          symbol: 'ᴬˢᶜ',
+          sign: '',
+          house: '',
+          chars: ['A Imagem', 'O Início'],
           char: { name: '', tribe: '', place: '' },
         },
       },
