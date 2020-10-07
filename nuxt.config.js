@@ -10,7 +10,7 @@ export default {
   // Global page headers (https://go.nuxtjs.dev/config-head)
   head: {
     htmlAttrs: {
-      lang="pt-br",
+      lang:"pt-br",
     },
     titleTemplate: 'Read My Star - %s',
     title: 'Write My Story',
