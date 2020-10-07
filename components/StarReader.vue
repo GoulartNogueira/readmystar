@@ -1,5 +1,6 @@
 <template>
   <div id="StarReader" class="main">
+    <v-divider></v-divider>
     <div id="results">
       <div>
         <div class="title">
@@ -37,6 +38,7 @@
                 <v-select
                   v-model="planet.char.name"
                   class="char-selector"
+                  label="Escolha seu herói"
                   :append-outer-icon="planet.symbol"
                   :items="planet.chars"
                 >
@@ -47,6 +49,7 @@
                 <v-select
                   v-model="planet.char.tribe"
                   class="char-selector"
+                  label="Escolha sua tribo"
                   :append-outer-icon="
                     signs_list[myChart.planets[planet_id].sign]['symbol']
                   "
@@ -59,6 +62,7 @@
                   v-if="myChart.planets[planet_id].house"
                   v-model="planet.char.place"
                   class="char-selector"
+                  label="Escolha seu cenário"
                   :append-outer-icon="
                     myChart.planets[planet_id].house.toString()
                   "
@@ -71,6 +75,7 @@
         </div>
       </div>
     </div>
+    <v-divider></v-divider>
     <div class="container">
       <div class="title">
         <h2>Minha História</h2>
