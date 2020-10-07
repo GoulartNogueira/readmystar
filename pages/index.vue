@@ -77,7 +77,10 @@ export default {
       const params = {
         date: this.BirthdayDate,
         time: this.BirthdayTime,
-        placename: this.BirthdayCity,
+        placename: this.BirthdayCity.normalize('NFD').replace(
+          /[\u0300-\u036F]/g,
+          ''
+        ),
         /* latlong: this.BirthdayCity.lat.concat(',', this.BirthdayCity.lng), */
       }
       console.log(params)
