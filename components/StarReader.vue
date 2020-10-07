@@ -54,48 +54,46 @@
                 </h3>
               </div>
               <div>
-                <v-select v-model="planet.char.name" :items="planet.chars">
+                <v-select
+                  v-model="planet.char.name"
+                  :append-outer-icon="planet.symbol"
+                  solo
+                  :items="planet.chars"
+                >
                 </v-select>
-                <label for="Char planet">{{ planet.symbol }}</label>
-                <!--<span v-for="(sign_details,id_sign_details) in signs_list[planet.sign]">{{ id_sign_details }} </span>
-                      
-                    <span v-for="sign_details in signs_list[planet.sign]">{{ sign_details }} </span> -->
-                <!-- <span v-repeat="signs_list[planet.sign]">{{ $tribe }} </span> -->
 
                 <label for="Char_sign">{{ signs_list.id_char }}</label>
                 <v-select
                   v-model="planet.char.tribe"
-                  :items="signs_tribes[myChart.planets[planet_id].sign]"
+                  :append-outer-icon="
+                    signs_list[myChart.planets[planet_id].sign]['symbol']
+                  "
+                  solo
+                  :items="signs_list[myChart.planets[planet_id].sign]['tribo']"
                 >
-                  <!-- <option
-                      v-for="(tribb, sign_id) in signs_tribes[planet.sign]"
-                      :key="sign_id"
-                    > 
-                  {{ tribb }}
-                  -->
-                  <!-- </option> -->
                 </v-select>
-                {{ signs_list[myChart.planets[planet_id].sign]['symbol'] }}
 
                 <v-select
                   v-if="myChart.planets[planet_id].house"
                   v-model="planet.char.place"
+                  solo
+                  :append-outer-icon="
+                    '⌂'.concat(myChart.planets[planet_id].house.toString())
+                  "
                   :items="houses_info[myChart.planets[planet_id].house - 1]"
                 >
-                  <!-- <option
-                    v-for="place in houses_info[myChart.planets[planet_id].house - 1]"
-                    :key="place"
-                  >
-                    {{ place }}
-                  </option> -->
                 </v-select>
-                <label for="Char_house">(Casa {{ planet.house }})</label>
 
                 <br />
               </div>
               <div>
-                {{ planet.char.name }} da tribo dos {{ planet.char.tribe }} está
-                {{ planet.char.place }}
+                {{ planet.char.name }}
+                <span v-if="planet.char.tribe"
+                  >da tribo dos {{ planet.char.tribe }}</span
+                >
+                <span v-if="planet.char.place"
+                  >está {{ planet.char.place }}</span
+                >
               </div>
             </div>
           </div>
@@ -135,16 +133,23 @@
               }}</span>
               <span v-else>{{ myaspect[0][1] }}</span>
             </h5>
-            <span v-if="planets[myaspect[0][0]]">{{
-              planets[myaspect[0][0]].char.name
-            }}</span>
-            <span v-else> {{ myaspect[0][0] }} </span>
-            <span> e </span>
-            <span v-if="planets[myaspect[0][1]]">{{
-              planets[myaspect[0][1]].char.name
-            }}</span>
-            <span v-else> {{ myaspect[0][1] }} </span>
-            {{ aspects[myaspect[1]].history[0] }}
+            <div
+              v-if="
+                planets[myaspect[0][1]].char.name &&
+                planets[myaspect[0][0]].char.name
+              "
+            >
+              <span v-if="planets[myaspect[0][0]]">{{
+                planets[myaspect[0][0]].char.name
+              }}</span>
+              <span v-else> {{ myaspect[0][0] }} </span>
+              <span> e </span>
+              <span v-if="planets[myaspect[0][1]]">{{
+                planets[myaspect[0][1]].char.name
+              }}</span>
+              <span v-else> {{ myaspect[0][1] }} </span>
+              {{ aspects[myaspect[1]].history[0] }}
+            </div>
           </div>
         </div>
       </div>
@@ -184,7 +189,7 @@ export default {
   data() {
     return {
       signs_tribes: {
-        Aries: ['nômades', 'amazonas', '', 'conquistadores', 'pioneiros'],
+        Aries: ['nômades', 'amazonas', 'conquistadores', 'pioneiros'],
         Taurus: [
           'fazendeiros',
           'tradicionalistas',
@@ -336,11 +341,11 @@ export default {
           symbol: '♏',
           tribe: ['mighty', 'mysterious', 'healers', 'sorcerers', 'evil'],
           tribo: [
-            'poderoso',
-            'misterioso',
+            'poderosos',
+            'misteriosos',
             'curandeiros',
             'feiticeiros',
-            'mal',
+            'malvados',
           ],
         },
         Sagittarius: {
@@ -357,7 +362,7 @@ export default {
           tribo: [
             'nobres',
             'pastores',
-            'olimpíadas',
+            'olímpicos',
             'missionários',
             'arrogantes',
             'hipócritas',
@@ -375,7 +380,7 @@ export default {
             'ascetics',
           ],
           tribo: [
-            'performers',
+            'performáticos',
             'conservadores',
             'confiáveis',
             'sérios',
@@ -393,9 +398,9 @@ export default {
             'reformers',
           ],
           tribo: [
-            'sábio',
-            'utópico',
-            'cabeça de nuvem',
+            'sábios',
+            'utópicos',
+            'cabeças de núvem',
             'individualistas',
             'reformadores',
           ],
