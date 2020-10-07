@@ -17,8 +17,8 @@
             label="Fuso Horário (UTC)"
             prepend-icon="mdi-map-clock"
           ></v-text-field>
-          <p v-if="citydescription">{{ citydescription }}</p>
-          <p v-if="citymap">{{ citymap }}</p>
+          <address v-if="citydescription">{{ citydescription }}</address>
+          <a v-if="citymap">{{ citymap }}</a>
           <v-btn
             id="submit"
             :disabled="

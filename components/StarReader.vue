@@ -11,53 +11,20 @@
             :key="planet_id"
             class="col-sm-6 col-lg-3"
           >
-            <div v-if="myChart.planets[planet_id]" class="title">
-              <div>
-                <h3>{{ planet.name }} ({{ planet.symbol }})</h3>
-                <h5>
-                  em
-                  {{ signs_list[myChart.planets[planet_id].sign]['name'] }}({{
-                    signs_list[myChart.planets[planet_id].sign]['symbol']
-                  }})
-                  <span v-if="myChart.planets[planet_id].house">
-                    na Casa {{ myChart.planets[planet_id].house }}</span
-                  >
-                </h5>
-              </div>
-              <div>
-                <v-select
-                  v-model="planet.char.name"
-                  :append-outer-icon="planet.symbol"
-                  solo
-                  :items="planet.chars"
+            <v-card v-if="myChart.planets[planet_id]" elevation="2" shaped>
+              <v-card-title>
+                {{ planet.name }} ({{ planet.symbol }})
+              </v-card-title>
+              <v-card-subtitle>
+                em
+                {{ signs_list[myChart.planets[planet_id].sign]['name'] }}({{
+                  signs_list[myChart.planets[planet_id].sign]['symbol']
+                }})
+                <span v-if="myChart.planets[planet_id].house">
+                  na Casa {{ myChart.planets[planet_id].house }}</span
                 >
-                </v-select>
-
-                <label for="Char_sign">{{ signs_list.id_char }}</label>
-                <v-select
-                  v-model="planet.char.tribe"
-                  :append-outer-icon="
-                    signs_list[myChart.planets[planet_id].sign]['symbol']
-                  "
-                  solo
-                  :items="signs_list[myChart.planets[planet_id].sign]['tribo']"
-                >
-                </v-select>
-
-                <v-select
-                  v-if="myChart.planets[planet_id].house"
-                  v-model="planet.char.place"
-                  solo
-                  :append-outer-icon="
-                    myChart.planets[planet_id].house.toString()
-                  "
-                  :items="houses_info[myChart.planets[planet_id].house - 1]"
-                >
-                </v-select>
-
-                <br />
-              </div>
-              <div>
+              </v-card-subtitle>
+              <v-card-text>
                 {{ planet.char.name }}
                 <span v-if="planet.char.tribe"
                   >da tribo dos {{ planet.char.tribe }}</span
@@ -65,8 +32,41 @@
                 <span v-if="planet.char.place"
                   >está {{ planet.char.place }}</span
                 >
-              </div>
-            </div>
+              </v-card-text>
+              <v-card-actions>
+                <v-select
+                  v-model="planet.char.name"
+                  class="char-selector"
+                  :append-outer-icon="planet.symbol"
+                  :items="planet.chars"
+                >
+                </v-select>
+              </v-card-actions>
+              <v-card-actions>
+                <label for="Char_sign">{{ signs_list.id_char }}</label>
+                <v-select
+                  v-model="planet.char.tribe"
+                  class="char-selector"
+                  :append-outer-icon="
+                    signs_list[myChart.planets[planet_id].sign]['symbol']
+                  "
+                  :items="signs_list[myChart.planets[planet_id].sign]['tribo']"
+                >
+                </v-select>
+              </v-card-actions>
+              <v-card-actions>
+                <v-select
+                  v-if="myChart.planets[planet_id].house"
+                  v-model="planet.char.place"
+                  class="char-selector"
+                  :append-outer-icon="
+                    myChart.planets[planet_id].house.toString()
+                  "
+                  :items="houses_info[myChart.planets[planet_id].house - 1]"
+                >
+                </v-select>
+              </v-card-actions>
+            </v-card>
           </div>
         </div>
       </div>
@@ -127,6 +127,12 @@
     </div>
   </div>
 </template>
+
+<style scoped>
+.char-selector {
+  outlined: true;
+}
+</style>
 
 <script>
 /* const getParams = () => import('./astro.json').then((m) => m.default || m) */
