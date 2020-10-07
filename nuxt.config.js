@@ -17,6 +17,7 @@ export default {
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
+      { hid: 'og:description', name: 'og:description',  content: 'A forma mais simples e divertida de aprender sobre seu mapa astral' },
       { hid: 'description', name: 'description',  content: 'A forma mais simples e divertida de aprender sobre seu mapa astral' },
       { hid: 'keyword', name: 'keyword', content: 'astrologia, mapa astral, autoconhecimento, signos, personagens, história, astro' },
     ],
