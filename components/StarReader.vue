@@ -1,42 +1,9 @@
 <template>
   <div id="StarReader" class="main">
     <div id="results">
-      <div class="title">
-        <h2>Meu Mapa Astral</h2>
-      </div>
-
-      <div class="row">
-        <div
-          v-for="(planet, planet_id) in planets"
-          :key="planet_id"
-          class="col-sm-6 col-lg-3"
-        >
-          <div v-if="myChart.planets[planet_id]" class="title">
-            <h3>
-              {{ planet.name }} {{ planet.symbol }}
-              <!-- {{ myChart.planets[planet_id].sign }}
-              {{ myChart.planets[planet_id].house }} -->
-            </h3>
-            <h5>
-              <span>
-                em {{ signs_list[myChart.planets[planet_id].sign]['name'] }} ({{
-                  signs_list[myChart.planets[planet_id].sign]['symbol']
-                }})
-              </span>
-              <span v-if="myChart.planets[planet_id].house">
-                na Casa {{ myChart.planets[planet_id].house }}</span
-              >
-            </h5>
-            <!--{{planet.sign}},
-                 {{signs_list.signo2.symbol}} -->
-            <br />
-          </div>
-        </div>
-      </div>
-
       <div>
         <div class="title">
-          <h2>Personagens</h2>
+          <h2>Meus Personagens</h2>
         </div>
         <div class="row">
           <div
@@ -44,14 +11,18 @@
             :key="planet_id"
             class="col-sm-6 col-lg-3"
           >
-            <div v-if="myChart.planets[planet_id]">
+            <div v-if="myChart.planets[planet_id]" class="title">
               <div>
-                <h3>
-                  {{ planet.name }} ({{ planet.symbol }}) em
+                <h3>{{ planet.name }} ({{ planet.symbol }})</h3>
+                <h5>
+                  em
                   {{ signs_list[myChart.planets[planet_id].sign]['name'] }}({{
                     signs_list[myChart.planets[planet_id].sign]['symbol']
-                  }}) na Casa {{ myChart.planets[planet_id].house }}
-                </h3>
+                  }})
+                  <span v-if="myChart.planets[planet_id].house">
+                    na Casa {{ myChart.planets[planet_id].house }}</span
+                  >
+                </h5>
               </div>
               <div>
                 <v-select
@@ -102,7 +73,7 @@
     </div>
     <div class="container">
       <div class="title">
-        <h2>História</h2>
+        <h2>Minha História</h2>
       </div>
       <div class="row">
         <div
