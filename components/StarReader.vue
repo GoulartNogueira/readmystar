@@ -456,7 +456,7 @@ export default {
           'no mundão velho e sem porteira',
         ],
         [
-          'ma torre',
+          'na torre',
           'no salão da fama',
           'no mundo da seriedade',
           'na vida profissional',

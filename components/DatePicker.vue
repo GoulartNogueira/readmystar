@@ -10,7 +10,7 @@
     <template v-slot:activator="{ on, attrs }">
       <v-text-field
         v-model="date"
-        label="Dia de Nascimento"
+        label="Data de Nascimento"
         prepend-icon="mdi-calendar"
         readonly
         v-bind="attrs"
