@@ -13,13 +13,13 @@
           >
             <v-card v-if="myChart.planets[planet_id]" elevation="2" shaped>
               <v-card-title>
-                {{ planet.name }} ({{ planet.symbol }})
+                <v-icon large left> {{ planet.symbol }} </v-icon>
+                <span class="title font-weight-light">{{ planet.name }}</span>
               </v-card-title>
               <v-card-subtitle>
                 em
-                {{ signs_list[myChart.planets[planet_id].sign]['name'] }}({{
-                  signs_list[myChart.planets[planet_id].sign]['symbol']
-                }})
+                {{ signs_list[myChart.planets[planet_id].sign]['name'] }}
+                ({{ signs_list[myChart.planets[planet_id].sign]['symbol'] }})
                 <span v-if="myChart.planets[planet_id].house">
                   na Casa {{ myChart.planets[planet_id].house }}</span
                 >
@@ -535,7 +535,7 @@ export default {
             'são opostos que se equilibram',
           ],
         },
-        Trine: { symbol: '△', translation: 'Trino', history: ['são amigos'] },
+        Trine: { symbol: '△', translation: 'Trígono', history: ['são amigos'] },
         Square: {
           symbol: '□',
           translation: 'Quadratura',
@@ -577,7 +577,7 @@ export default {
       planets: {
         Asc: {
           name: 'Ascendente',
-          symbol: '𝖠𝗌𝖼',
+          symbol: 'ᴬˢᶜ',
           sign: '',
           house: '',
           chars: ['A Imagem', 'O Início'],
