@@ -49,7 +49,7 @@
                   v-model="planet.char.place"
                   solo
                   :append-outer-icon="
-                    '⌂'.concat(myChart.planets[planet_id].house.toString())
+                    myChart.planets[planet_id].house.toString()
                   "
                   :items="houses_info[myChart.planets[planet_id].house - 1]"
                 >
@@ -571,7 +571,7 @@ export default {
       planets: {
         Asc: {
           name: 'Ascendente',
-          symbol: 'ASC',
+          symbol: '𝖠𝗌𝖼',
           sign: '',
           house: '',
           chars: ['A Imagem', 'O Início'],
