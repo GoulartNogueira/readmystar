@@ -17,8 +17,9 @@ export default {
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { hid: 'og:description', name: 'og:description',  content: 'A forma mais simples e divertida de aprender sobre seu mapa astral' },
-      { hid: 'description', name: 'description',  content: 'A forma mais simples e divertida de aprender sobre seu mapa astral' },
+      { hid: 'og:description', name: 'og:description',  content: 'Aprenda sobre seu mapa astral de forma simples e divertida.' },
+      { hid: "og:image", name:"og:image", content:"~/static/images/teaser.png"},
+      { hid: 'description', name: 'description',  content: 'Aprenda sobre seu mapa astral de forma simples e divertida' },
       { hid: 'keyword', name: 'keyword', content: 'astrologia, mapa astral, autoconhecimento, signos, personagens, história, astro' },
     ],
     link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
@@ -79,7 +80,14 @@ export default {
       },
     },
   },
-
+  router: {
+      scrollBehavior(to) {
+        if (to.hash) {
+          return window.scrollTo({ top: document.querySelector(to.hash).offsetTop + window.innerHeight, behavior: 'smooth' });
+        }
+        return window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    },
   // Build Configuration (https://go.nuxtjs.dev/config-build)
   build: {
   extend(config, ctx) {

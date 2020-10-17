@@ -1,75 +1,82 @@
 <template>
   <div>
-    <Background />
+    <h1>Calcule seu Mapa Astral</h1>
     <v-row justify="center" align="center">
       <v-col cols="12" sm="8" md="6">
-        <v-row>
-          <DatePicker v-model="BirthdayDate" />
-          <TimePicker v-model="BirthdayTime" />
-          <v-text-field
-            v-model="BirthdayCity"
-            label="Cidade de Nascimento"
-            prepend-icon="mdi-map-marker"
-          ></v-text-field>
-          <v-text-field
-            v-if="Timezone"
-            v-model="Timezone"
-            label="Fuso Horário (UTC)"
-            prepend-icon="mdi-map-clock"
-          ></v-text-field>
-          <address v-if="citydescription">{{ citydescription }}</address>
-          <a v-if="citymap">{{ citymap }}</a>
-          <v-btn
-            id="submit"
-            :disabled="
-              !(
-                BirthdayCity !== null &&
-                BirthdayDate !== null &&
-                BirthdayTime !== null
-              )
-            "
-            color="primary"
-            block
-            elevation="2"
-            x-large
-            @click="fetch_my_map()"
-            >Calcule</v-btn
-          >
-        </v-row>
-        <div></div>
+        <form>
+          <v-row>
+            <DatePicker v-model="BirthdayDate" />
+            <TimePicker v-model="BirthdayTime" />
+            <v-text-field
+              v-model="BirthdayCity"
+              :rules="CityRules"
+              label="Cidade de Nascimento"
+              prepend-icon="mdi-map-marker"
+            ></v-text-field>
+            <v-text-field
+              v-if="Timezone"
+              v-model="Timezone"
+              label="Fuso Horário (UTC)"
+              prepend-icon="mdi-map-clock"
+            ></v-text-field>
+            <address v-if="citydescription">{{ citydescription }}</address>
+            <a v-if="citymap">{{ citymap }}</a>
+            <v-btn
+              id="submit"
+              :disabled="
+                !(
+                  BirthdayCity !== null &&
+                  BirthdayDate !== null &&
+                  BirthdayTime !== null
+                )
+              "
+              color="primary"
+              block
+              elevation="2"
+              x-large
+              :loading="LoadingChart"
+              @click="fetch_my_map()"
+              >Calcule</v-btn
+            >
+          </v-row>
+        </form>
       </v-col>
     </v-row>
     <StarReader v-if="ResponseAvailable" :my-chart="MyChart" />
+    <LearnMore />
   </div>
 </template>
 
 <script>
-import Background from '~/components/Background.vue'
 import DatePicker from '~/components/DatePicker.vue'
 import TimePicker from '~/components/TimePicker.vue'
 import StarReader from '~/components/StarReader.vue'
+import LearnMore from '~/components/LearnMore.vue'
 
 export default {
   components: {
-    Background,
     TimePicker,
     DatePicker,
     StarReader,
+    LearnMore,
   },
   data: () => ({
     MyChart: { planets: {}, aspects: {} },
     BirthdayDate: null,
     BirthdayTime: null,
     BirthdayCity: null,
+    LoadingChart: false,
     ResponseAvailable: false,
     Timezone: null,
     lat: null,
     lng: null,
     citymap: null,
     citydescription: null,
+    CityRules: [(value) => !!value || 'Obrigatório.'],
   }),
   methods: {
     fetch_my_map() {
+      /* this.LoadingChart = true */
       this.$emit('submitclicked')
       const url = new URL('https://flatlib.vercel.app/api/astro')
       console.log(url)
@@ -96,7 +103,6 @@ export default {
             )
           }
         })
-        .then((json) => (this.MyChart = json))
         .then((json) => {
           this.MyChart = json
           console.log(this.MyChart)
@@ -111,24 +117,11 @@ export default {
               this.citydescription = this.MyChart.parameters.latlong[3].display_name
             }
           }
-          /* for (const planet in this.planets) {
-            // planet = this.planets[p].id;
-            // console.log(planet)
-            if (planet in this.MyChart.planets) {
-              this.planets[planet].sign = this.MyChart.planets[planet].sign
-              const HouseString = this.MyChart.planets[planet].house
-              // if(HouseString.length>0){
-              this.planets[planet].house = HouseString.substring(
-                5,
-                HouseString.length
-              )
-              //  }
-            }
-          } */
+          /* this.LoadingChart = false */
+          this.ResponseAvailable = true
+          console.log(this.MyChart)
         })
         .then(this.$emit('click', this.MyChart))
-        .then((this.ResponseAvailable = true))
-        .then(console.log(this.MyChart))
     },
   },
 }

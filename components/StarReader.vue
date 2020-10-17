@@ -82,12 +82,12 @@
       </div>
       <div class="row">
         <div
-          v-for="(myaspect, myaspect_id) in myChart.aspects"
-          :key="myaspect_id"
+          v-for="(myaspect, myAspectId) in myChart.aspects"
+          :key="myAspectId"
           class="col-sm-6 col-lg-3"
         >
-          <div>
-            <h2>
+          <v-card>
+            <v-card-title>
               <span v-if="planets[myaspect[0][0]]">{{
                 planets[myaspect[0][0]].symbol
               }}</span>
@@ -97,8 +97,8 @@
                 planets[myaspect[0][1]].symbol
               }}</span>
               <span v-else> {{ myaspect[0][1] }} </span>
-            </h2>
-            <h5>
+            </v-card-title>
+            <v-card-text>
               <span v-if="planets[myaspect[0][0]]">{{
                 planets[myaspect[0][0]].name
               }}</span>
@@ -108,7 +108,7 @@
                 planets[myaspect[0][1]].name
               }}</span>
               <span v-else>{{ myaspect[0][1] }}</span>
-            </h5>
+            </v-card-text>
             <div
               v-if="
                 planets[myaspect[0][1]].char.name &&
@@ -126,10 +126,28 @@
               <span v-else> {{ myaspect[0][1] }} </span>
               {{ aspects[myaspect[1]].history[0] }}
             </div>
-          </div>
+            <v-btn
+              v-if="
+                false /*excluir essa linha para habilitar*/ &&
+                planets[myaspect[0][1]].char.name &&
+                planets[myaspect[0][0]].char.name
+              "
+              :id="'btn'.concat(myAspectId)"
+              elevation="2"
+              small
+              @click="gpt(myAspectId)"
+              >História</v-btn
+            >
+          </v-card>
+          <!-- planets[myaspect[0][0]].char.name.concat(
+              ' e ',
+              planets[myaspect[0][1]].char.name,
+              aspects[myaspect[1]].history[0]
+            ) -->
         </div>
       </div>
     </div>
+    <v-card v-if="historydone" id="history"> {{ myhistory }} </v-card>
   </div>
 </template>
 
@@ -170,6 +188,8 @@ export default {
   },
   data() {
     return {
+      historydone: false,
+      myhistory: null,
       signs_tribes: {
         Aries: ['nômades', 'amazonas', 'conquistadores', 'pioneiros'],
         Taurus: [
@@ -667,10 +687,79 @@ export default {
       },
     }
   },
-  /* async asyncData({ req }) {
-    const astro = await getParams()
 
-    return { astro }
-  }, */
+  // Example posting a text URL:
+  // Get the 'deepai' package here (Compatible with browser & nodejs):
+  //     https://www.npmjs.com/package/deepai
+  // All examples use JS async-await syntax, be sure to call the API inside an async function.
+  //     Learn more about async-await here: https://javascript.info/async-await
+
+  methods: {
+    CharName(CharID) {
+      return this.planets[CharID].char.name
+    },
+    IntroText(myAspectId) {
+      const intro =
+        'Resumo: A seguinte história é uma metáfora sobre astrologia no formato de uma peça teatral. Cada personagem representa um planeta e seu respectivo signo. Cada cena é um aspecto, com situações que evidenciam as características e as relações entre os personagens.\n\nPERSONAGENS:'
+      const Char1 = this.myChart.aspects[myAspectId][0][0]
+      const Char2 = this.myChart.aspects[myAspectId][0][1]
+      const HistAsp = this.myChart.aspects[myAspectId][1]
+      const HistIntro = intro
+        .concat(
+          this.CharName(Char1),
+          ' da tribo dos ',
+          this.planets[Char1].tribe,
+          ' está ',
+          this.planets[Char1].place,
+          '.'
+        )
+        .concat(
+          this.CharName(Char2),
+          ' da tribo dos ',
+          this.planets[Char2].tribe,
+          ' está ',
+          this.planets[Char2].place,
+          '.'
+        )
+        .concat(
+          '\n\nCONFIGURAÇÃO:',
+          ' e ',
+          this.planets[Char2].char.name,
+          ' ',
+          this.aspects[HistAsp].history[0]
+        )
+        .concat('\n\nATO I\n\nCENA 1')
+        .concat('.\n\n', this.CharName(Char1), ':')
+      return HistIntro
+    },
+    gpt(myAspectId) {
+      /* constructor(textinput) {
+        this.textinput = textinput;
+      }
+      then(result){
+        alert(result);
+      } */
+
+      this.$emit('historyclicked')
+      console.log('starting API query...')
+      // Example posting file picker input text (Browser only):
+      const deepai = require('deepai') // OR include deepai.min.js as a script tag in your HTML
+      const textinput = this.IntroText(myAspectId)
+      console.log(textinput)
+      console.log('1st log')
+      deepai.setApiKey('d6ccc08d-4cc0-46a2-bbe5-cae32f91559a')
+      ;(async function (textinput) {
+        const resp = await deepai.callStandardApi('text-generator', {
+          text: textinput,
+        })
+        console.log('2st log')
+        console.log(resp)
+        return resp.output
+      })(textinput).then((finaltext) => {
+        this.myhistory = finaltext
+        this.historydone = true
+      })
+    },
+  },
 }
 </script>

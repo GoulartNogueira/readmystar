@@ -42,6 +42,7 @@
       </v-btn>
     </v-app-bar> -->
     <v-main>
+      <Background />
       <v-container>
         <nuxt />
       </v-container>
@@ -63,7 +64,11 @@
 </template>
 
 <script>
+import Background from '~/components/Background.vue'
 export default {
+  components: {
+    Background,
+  },
   data() {
     return {
       clipped: false,
