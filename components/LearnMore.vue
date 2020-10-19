@@ -33,11 +33,14 @@
     </p>
 
     <h2>Como Funciona?</h2>
+    <p>O mapa astral evidencia seu potencial, não sua predestinação.</p>
     <p>
       Para ler um mapa astral, é preciso compor e combinar os significados dos
       <nuxt-link :to="{ path: '/', hash: '#planetas' }">planetas</nuxt-link>,
       dos <nuxt-link :to="{ path: '/', hash: '#signos' }">signos</nuxt-link> e
-      das <nuxt-link :to="{ path: '/', hash: '#casas' }">casas</nuxt-link>.
+      das <nuxt-link :to="{ path: '/', hash: '#casas' }">casas</nuxt-link>. Além
+      dos
+      <nuxt-link :to="{ path: '/', hash: '#aspectos' }">aspectos</nuxt-link>.
     </p>
     <p>
       Isso pode parecer difícil, mas o
@@ -75,7 +78,13 @@
     <p>
       Existem também 12 casas, que é a posição relativa de um astro no céu. Um
       que está se pondo no oeste, por exemplo, está na casa 7. Já um planeta no
-      topo do céu, está na casa 9.
+      topo do céu (onde o Sol fica ao meio dia) está na casa 9.
+    </p>
+    <h3 id="aspectos">Aspectos</h3>
+    <p>
+      São as relações geométricas entre os planetas. Como exemplo, a lua cheia
+      acontece quando ela está no lado oposto ao Sol. Esse aspecto chamamos de
+      <em>oposição</em>.
     </p>
   </div>
 </template>

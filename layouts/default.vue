@@ -42,7 +42,7 @@
       </v-btn>
     </v-app-bar> -->
     <v-main>
-      <Background />
+      <ParticleBackground />
       <v-container>
         <nuxt />
       </v-container>
@@ -64,12 +64,12 @@
 </template>
 
 <script>
-import Background from '~/components/Background.vue'
+import ParticleBackground from '~/components/ParticlesBackground.vue'
 export default {
   components: {
-    Background,
+    ParticleBackground,
   },
-  data() {
+  /* data() {
     return {
       clipped: false,
       drawer: false,
@@ -91,6 +91,6 @@ export default {
       rightDrawer: false,
       title: 'Vuetify.js',
     }
-  },
+  }, */
 }
 </script>

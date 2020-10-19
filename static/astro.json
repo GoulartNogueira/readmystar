@@ -109,10 +109,10 @@
             "Opposition":{"symbol":"☍","translation":"Oposição","history":["se desafiam","são oponentes","são opostos que se equilibram"]},
             "Trine":{"symbol":"△","translation":"Trino","history":["são amigos"]},
             "Square":{"symbol":"□","translation":"Quadratura","history":["não se dão bem"]},
-            "Semi-Square":{"symbol":"∠","translation":"Semi-Quadratura","history":["se cutucam"]},//stimulating or challenging energy like that of a square but less intense and more internal.
+            "Semi-Square":{"symbol":"∠","translation":"Semi-Quadratura","history":["se cutucam"]},
             "Sextile":{"symbol":"⚹","translation":"Sextil","history":["estão conversando","se apoiam"]},
             "Quincunx":{"symbol":"⚻","translation":"Quincúcio","history":["tendem a ter uma relação difícil"]},
-            "Quintile":{"symbol":"⬠","translation":"Quintil","history":["têm oportunidade de criar juntos","fluem criatividade entre si", "criam juntos", "performam juntos", "se expressam e criam entretenimento"]},//entertaining or expressive], //#It indicates a strong creative flow of energy between the planets involved, often an opportunity for something performative, entertaining or expressive. 
+            "Quintile":{"symbol":"⬠","translation":"Quintil","history":["têm oportunidade de criar juntos","fluem criatividade entre si", "criam juntos", "performam juntos", "se expressam e criam entretenimento"]},
             "Semi-sextile":{"symbol":"⚺","translation":"Semi-Sextil","history":["compartilham um pensamento comum"]}
         },
 

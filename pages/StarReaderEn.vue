@@ -4,9 +4,7 @@
     <div id="results">
       <div>
         <div class="title">
-          <h1>TESTE</h1>
-          <p>{{ astrojson }}</p>
-          <h2>Meus Personagens</h2>
+          <h2>My Characters</h2>
         </div>
         <div class="row">
           <div
@@ -20,11 +18,11 @@
                 <span class="title font-weight-light">{{ planet.name }}</span>
               </v-card-title>
               <v-card-subtitle>
-                em
+                in
                 {{ signs_list[myChart.planets[planet_id].sign]['name'] }}
                 ({{ signs_list[myChart.planets[planet_id].sign]['symbol'] }})
                 <span v-if="myChart.planets[planet_id].house">
-                  na Casa {{ myChart.planets[planet_id].house }}</span
+                  at House {{ myChart.planets[planet_id].house }}</span
                 >
               </v-card-subtitle>
               <v-card-text>
@@ -42,7 +40,7 @@
                   class="char-selector"
                   label="Escolha seu herói"
                   :append-outer-icon="planet.symbol"
-                  :items="planet.chars"
+                  :items="planet.keywords.basic"
                 >
                 </v-select>
               </v-card-actions>
@@ -55,7 +53,11 @@
                   :append-outer-icon="
                     signs_list[myChart.planets[planet_id].sign]['symbol']
                   "
-                  :items="signs_list[myChart.planets[planet_id].sign]['tribo']"
+                  :items="
+                    signs_list[myChart.planets[planet_id].sign]['keywords'][
+                      'basic'
+                    ]
+                  "
                 >
                 </v-select>
               </v-card-actions>
@@ -196,84 +198,37 @@ export default {
     return {
       historydone: false,
       myhistory: null,
-      signs_tribes: {
-        Aries: ['nômades', 'amazonas', 'conquistadores', 'pioneiros'],
-        Taurus: [
-          'fazendeiros',
-          'tradicionalistas',
-          'pessoas da terra',
-          'bancários',
-          'amantes do prazer',
-        ],
-        Gemini: ['escritores', 'curiosos', 'estudantes', 'exibicionistas'],
-        Cancer: [
-          'ajudantes',
-          'sonhadores',
-          'românticos',
-          'conselheiros espirituais',
-        ],
-        Leo: ['chefes', 'amantes do luxo', 'estrelas'],
-        Virgo: [
-          'pessoas eficientes',
-          'frugais',
-          'professores primários',
-          'mestres',
-        ],
-        Libra: [
-          'artistas elegantes',
-          'diplomatas',
-          'sedutores',
-          'juízes indecisos',
-        ],
-        Scorpio: [
-          'poderoso',
-          'misterioso',
-          'curandeiros',
-          'feiticeiros',
-          'mal',
-        ],
-        Sagittarius: [
-          'nobres',
-          'pastores',
-          'olimpíadas',
-          'missionários',
-          'arrogantes',
-          'hipócritas',
-        ],
-        Capricorn: [
-          'confiáveis',
-          'performáticos',
-          'conservadores',
-          'sérios',
-          'ascetas',
-        ],
-        Aquarius: [
-          'sábio',
-          'utópico',
-          'cabeça de nuvem',
-          'individualistas',
-          'reformadores',
-        ],
-        Pisces: [
-          'videntes',
-          'musas',
-          'sonhadores',
-          'transfigurados',
-          'bons samaritanos',
-          'mártires',
-        ],
-      },
       signs_list: {
-        '': { name: '', symbol: '', tribe: [''], tribo: [''] },
+        '': {
+          name: '',
+          symbol: '',
+          keywords: {
+            basic: [],
+            positive: [],
+            negative: [],
+          },
+          tribe: [''],
+          tribo: [''],
+        },
         Aries: {
           name: 'Áries',
           symbol: '♈',
+          keywords: {
+            basic: ['Self-esteem', 'initiative', 'pioneering'],
+            positive: ['Ambition', 'courage', 'enterprise'],
+            negative: ['Self-will', 'temper', 'brusqueness', 'overbearance'],
+          },
           tribe: ['nomads', 'amazons', 'frantic', 'conquerors', 'pioneers'],
           tribo: ['nômades', 'amazonas', 'conquistadores', 'pioneiros'],
         },
         Taurus: {
           name: 'Touro',
           symbol: '♉',
+          keywords: {
+            basic: ['Determination', 'interest in mundane affairs'],
+            positive: ['Endurance', 'thoroughness', 'conservatism', 'harmony'],
+            negative: ['Obstinacy', 'argumentativeness'],
+          },
           tribe: [
             'farmers',
             'traditionalists',
@@ -292,12 +247,30 @@ export default {
         Gemini: {
           name: 'Gêmeos',
           symbol: '♊',
+          keywords: {
+            basic: [
+              'Intellectuality',
+              'literary affairs',
+              'work with hands, dualism',
+            ],
+            positive: [],
+            negative: [],
+          },
           tribe: ['writers', 'curious', 'scholars', 'exhibitionists'],
           tribo: ['escritores', 'curiosos', 'estudantes', 'exibicionistas'],
         },
         Cancer: {
           name: 'Câncer',
           symbol: '♋',
+          keywords: {
+            basic: [
+              'Love of home',
+              'capacity for home building',
+              'impressionability',
+            ],
+            positive: ['Sympathy', 'sensitiveness', 'artistry'],
+            negative: ['Clannishness', 'timidity', 'restlessness', 'indolence'],
+          },
           tribe: [
             'helpers',
             'daydreamers',
@@ -314,12 +287,22 @@ export default {
         Leo: {
           name: 'Leão',
           symbol: '♌',
+          keywords: {
+            basic: [],
+            positive: [],
+            negative: [],
+          },
           tribe: ['chiefs', 'luxury lovers', 'stars', 'pashas'],
           tribo: ['chefes', 'amantes do luxo', 'estrelas'],
         },
         Virgo: {
           name: 'Virgem',
           symbol: '♍',
+          keywords: {
+            basic: [],
+            positive: [],
+            negative: [],
+          },
           tribe: ['efficient people', 'frugal', 'primary teachers', 'masters'],
           tribo: [
             'pessoas eficientes',
@@ -331,6 +314,11 @@ export default {
         Libra: {
           name: 'Libra',
           symbol: '♎',
+          keywords: {
+            basic: [],
+            positive: [],
+            negative: [],
+          },
           tribe: [
             'elegant artists',
             'diplomats',
@@ -347,6 +335,11 @@ export default {
         Scorpio: {
           name: 'Escorpião',
           symbol: '♏',
+          keywords: {
+            basic: [],
+            positive: [],
+            negative: [],
+          },
           tribe: ['mighty', 'mysterious', 'healers', 'sorcerers', 'evil'],
           tribo: [
             'poderosos',
@@ -359,6 +352,11 @@ export default {
         Sagittarius: {
           name: 'Sagitário',
           symbol: '♐',
+          keywords: {
+            basic: [],
+            positive: [],
+            negative: [],
+          },
           tribe: [
             'nobles',
             'shepherds',
@@ -379,6 +377,11 @@ export default {
         Capricorn: {
           name: 'Capricórnio',
           symbol: '♑',
+          keywords: {
+            basic: [],
+            positive: [],
+            negative: [],
+          },
           tribe: [
             'performers',
             'conservatives',
@@ -398,6 +401,11 @@ export default {
         Aquarius: {
           name: 'Aquário',
           symbol: '♒',
+          keywords: {
+            basic: [],
+            positive: [],
+            negative: [],
+          },
           tribe: [
             'wise',
             'utopics',
@@ -416,6 +424,11 @@ export default {
         Pisces: {
           name: 'Peixes',
           symbol: '♓',
+          keywords: {
+            basic: [],
+            positive: [],
+            negative: [],
+          },
           tribe: [
             'seers',
             'muses',
@@ -436,119 +449,33 @@ export default {
       },
       houses: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
       houses_info: [
+        ['Beginnings', 'early environment', 'personality', 'physical body'],
+        ['Finance', 'freedom given by money'],
+        ['Lower mind and speaking', 'short journeys', 'brothers and sisters'],
         [
-          'na ponte levadiça',
-          'no mundo exterior',
-          'no hall de entrada',
-          'na vitrine',
+          'The home',
+          'the mother',
+          'conditions at end of life',
+          'lands',
+          'mines',
         ],
-        ['no mundo financeiro', 'na sala de tesouros'],
-        ['na biblioteca', 'no mundo cotidiano', 'no mercado', 'na escola'],
+        ['Pleasure', 'education', 'children', 'publications', 'speculation'],
         [
-          'no berço',
-          'no mundo interno',
-          'na terra natal',
-          'no mundo da fantasia',
-          'no quarto das crianças',
-          'no mundo da infância',
+          'Servicem',
+          'relations with employers and employees',
+          'health and sickness',
         ],
+        ['Partnership', 'marriage', 'the public'],
+        ['Legacies', 'cause of death', 'occult tragedy', 'regeneration'],
+        ['Higher mind', 'religion, law', 'long journeys'],
+        ['Profession', 'standing in community', 'the father'],
+        ['Friends', 'hopes', 'wishes'],
         [
-          'no mundo do glamour',
-          'no playground',
-          'sob os refletores',
-          'no palco',
-        ],
-        ['no workshop', 'no hospital', 'no mundo profissional', 'no spa'],
-        [
-          'na cama nupcial',
-          'na montanha sagrada',
-          'no mundo das relações íntimas',
-          'no mundo das relações',
-        ],
-        [
-          'no porão',
-          'no cemitério',
-          'na boca do lixo',
-          'no mundo das sombras',
-          'no subterraneo',
-          'na zona de perigo',
-          'no submundo',
-        ],
-        [
-          'no púlpito',
-          'na universidade',
-          'na agência de viagens',
-          'na terra santa',
-          'no mundão velho e sem porteira',
-        ],
-        [
-          'na torre',
-          'no salão da fama',
-          'no mundo da seriedade',
-          'na vida profissional',
-        ],
-        [
-          'no quarto de hospedes',
-          'no salão do grupo',
-          'na comunidade',
-          'no mundo de irmãos e irmãs',
-        ],
-        [
-          'no eremitério',
-          'bem longe',
-          'em isolamento',
-          'em outros mundos',
-          'no topo do mundo',
-        ],
-
-        [
-          'basement',
-          'cemetery',
-          'garbage dump',
-          'shadow world',
-          'underground',
-          'danger zone',
-          'underworld',
-        ],
-        ['drawbridge', 'outside world', 'entrance hall', 'showcase'],
-        ['financial world', 'tesaure room'],
-        ['library', 'everyday world', 'market', 'school'],
-        [
-          'cradle',
-          'internal world',
-          'homeland',
-          'fantasy',
-          'children room',
-          'childhood world',
-        ],
-        ['glamor world', 'playground', 'under the reflectors', 'stage'],
-        ['workshop', 'hospital', 'professional world', 'spa'],
-        [
-          'bridal bed',
-          'sacred mountain',
-          'world of intimate relationships',
-          'world of relationships',
-        ],
-        [
-          'pulpit',
-          'university',
-          'travel agency',
-          'holy land',
-          'old world and no gatekeeper',
-        ],
-        ['tower', 'hall of fame', 'world of seriousness', 'professional life'],
-        [
-          'guest room',
-          'group room',
-          'community world',
-          'brothers and sisters world',
-        ],
-        [
-          'hermitage',
-          'far away',
-          'isolation',
-          'other worlds',
-          'top of the world',
+          'Paying debts of destiny',
+          'limitations',
+          'institutions for care of unfortunates',
+          'secrecy',
+          'mysticism',
         ],
       ],
       aspects: {
@@ -611,6 +538,25 @@ export default {
           symbol: '☉',
           sign: '',
           house: '',
+          keywords: {
+            basic: [
+              'Individuality',
+              'What you really are',
+              'vitality',
+              'will',
+              'chief ambitions',
+              'those in authority',
+              'men',
+            ],
+            positive: ['Generosity', 'dignity'],
+            negative: [
+              'Despotism',
+              'arrogance',
+              'ostentation',
+              'lack of ambition',
+              'animalistic qualities',
+            ],
+          },
           chars: ['O Rei', 'O Herói', 'O Pai', 'O Soberano'],
           char: { name: '', tribe: '', place: '' },
         },
@@ -619,6 +565,31 @@ export default {
           symbol: '☽',
           sign: '',
           house: '',
+          keywords: {
+            basic: [
+              'Personality',
+              'imagination',
+              'instinctual mind',
+              'emotions',
+              'change',
+              'fecundation',
+              'the people',
+              'women',
+            ],
+            positive: ['Positive psychic qualities', 'personal magnetism'],
+            negative: [
+              'Negativeness',
+              'visionariness',
+              'dreaming',
+              'vacillation',
+              'frivolity',
+              'fretfulness',
+              'procrastination',
+              'indecision',
+              'incorrect impressions',
+            ],
+          },
+
           chars: ['A Rainha', 'A Heroina', 'A Mãe'],
           char: { name: '', tribe: '', place: '' },
         },
@@ -627,6 +598,16 @@ export default {
           symbol: '☿',
           sign: '',
           house: '',
+          keywords: {
+            basic: [
+              'Reason',
+              'self-expression of all kinds',
+              'speaking',
+              'writing',
+              'gestures',
+              'knowledge through reason',
+            ],
+          },
           chars: ['O Olheiro', 'O Guia Local', 'O Comerciante', 'O Explorador'],
           char: { name: '', tribe: '', place: '' },
         },
@@ -635,6 +616,18 @@ export default {
           symbol: '♀',
           sign: '',
           house: '',
+          keywords: {
+            basic: [
+              'Attraction',
+              'cohesion',
+              'coalition',
+              'personal love',
+              'social instincts and activities',
+              'art',
+              'ornamentation',
+              'beauty',
+            ],
+          },
           chars: [
             'A Beleza',
             'A Musa',
@@ -649,6 +642,11 @@ export default {
           symbol: '♂',
           sign: '',
           house: '',
+          keywords: {
+            basic: [],
+            positive: [],
+            negative: [],
+          },
           chars: ['O Guerreiro', 'O Imprudente', 'O Conquistador', 'O Malvado'],
           char: { name: '', tribe: '', place: '' },
         },
@@ -657,6 +655,11 @@ export default {
           symbol: '♃',
           sign: '',
           house: '',
+          keywords: {
+            basic: [],
+            positive: [],
+            negative: [],
+          },
           chars: ['O Padre', 'O Homem Culto', 'O Filósofo', 'O Aristocrata'],
           char: { name: '', tribe: '', place: '' },
         },
@@ -665,6 +668,11 @@ export default {
           symbol: '♄',
           sign: '',
           house: '',
+          keywords: {
+            basic: [],
+            positive: [],
+            negative: [],
+          },
           chars: [
             'O Antigo',
             'O Homem Sério',
@@ -679,6 +687,11 @@ export default {
           symbol: '☊',
           sign: '',
           house: '',
+          keywords: {
+            basic: ['path of evolution', 'reason of existence'],
+            positive: [],
+            negative: [],
+          },
           chars: ['o caminho da evolução', 'o motivo da existência'],
           char: { name: '', tribe: '', place: '' },
         },
@@ -687,6 +700,11 @@ export default {
           symbol: 'ᴬˢᶜ',
           sign: '',
           house: '',
+          keywords: {
+            basic: [],
+            positive: [],
+            negative: [],
+          },
           chars: ['A Imagem', 'O Início'],
           char: { name: '', tribe: '', place: '' },
         },

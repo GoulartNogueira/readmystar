@@ -50,7 +50,7 @@
 <script>
 import DatePicker from '~/components/DatePicker.vue'
 import TimePicker from '~/components/TimePicker.vue'
-import StarReader from '~/components/StarReader.vue'
+import StarReader from '~/pages/StarReaderEn.vue'
 import LearnMore from '~/components/LearnMore.vue'
 
 export default {
