@@ -174,8 +174,8 @@ export default {
             "detect_on": "canvas",
             "events": {
               "onhover": {
-                "enable": false,
-                "mode": "repulse"
+                "enable": true,
+                "mode": "bubble"
               },
               "onclick": {
                 "enable": true,
@@ -192,9 +192,9 @@ export default {
               },
               "bubble": {
                 "distance": 250,
-                "size": 0,
+                "size": 3.5,
                 "duration": 2,
-                "opacity": 0,
+                "opacity": 0.8,
                 "speed": 3
               },
               "repulse": {
