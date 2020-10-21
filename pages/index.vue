@@ -67,6 +67,7 @@ export default {
   data: () => ({
     MyChart: { planets: {}, aspects: {} },
     BirthdayDate: null,
+    housesystem:"Placidus",
     BirthdayTime: null,
     BirthdayCity: null,
     LoadingChart: false,
@@ -88,9 +89,8 @@ export default {
       const params = {
         date: this.BirthdayDate,
         time: this.BirthdayTime,
-        placename: this.BirthdayCity.normalize('NFD').replace(
-          /[\u0300-\u036F]/g,
-          ''
+        placename: this.BirthdayCity,
+        housesystem: this.housesystem,
         ),
         /* latlong: this.BirthdayCity.lat.concat(',', this.BirthdayCity.lng), */
       }
