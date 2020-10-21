@@ -18,7 +18,7 @@ export default {
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
       { hid: 'og:description', name: 'og:description',  content: 'Free personalized astrology made easy, fun and simple.' },
-      { hid: "og:image", name:"og:image", content:"./teaser.png"},
+      { hid: "og:image", name:"og:image", content:"/icon.png"},
       { hid: 'description', name: 'description',  content: 'Free personalized astrology made easy, fun and simple.' },
       { hid: 'keyword', name: 'keyword', content: 'astrology, horoscope, horoscopes, birth chart, horoscope 2020, free horoscopes, ascendant, aries, taurus, gemini, cancer, leo, virgo, libra, scorpio, sagittarius, capricorn, aquarius, pisces, zodiac, sun sign, self knowledge, sign, characters, story' },
     ],
