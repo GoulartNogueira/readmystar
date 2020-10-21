@@ -6,7 +6,9 @@
         <div class="title">
           <h2>My Natal Chart</h2>
           <div style="position: absolute; right: 0; z-index: 6">
-            <v-btn @click="RandomFill()">Random Fill</v-btn>
+            <v-btn x-small rounded color="secondary" @click="RandomFill()"
+              >Fill Random<v-icon>mdi-shuffle</v-icon>
+            </v-btn>
           </div>
         </div>
         <div class="row">

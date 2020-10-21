@@ -19,8 +19,12 @@
               label="Timezone"
               prepend-icon="mdi-map-clock"
             ></v-text-field>
-            <address v-if="citydescription">{{ citydescription }}</address>
-            <a v-if="citymap">{{ citymap }}</a>
+            <a
+              v-if="citymap && citydescription"
+              class="caption sm"
+              :href="citymap"
+              >{{ citydescription }}
+            </a>
             <v-btn
               id="submit"
               :disabled="
