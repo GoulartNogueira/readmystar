@@ -761,7 +761,7 @@ export default {
             positive: [],
             negative: [],
           },
-          archetypes: ['the hero, the conqueror'],
+          archetypes: ['the hero', 'the conqueror'],
           chars: ['O Guerreiro', 'O Imprudente', 'O Conquistador', 'O Malvado'],
           char: { name: '', tribe: '', place: '' },
         },
