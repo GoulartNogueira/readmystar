@@ -10,17 +10,17 @@ export default {
   // Global page headers (https://go.nuxtjs.dev/config-head)
   head: {
     htmlAttrs: {
-      lang:"pt-br",
+      lang:"en",
     },
     titleTemplate: 'Read My Star - %s',
     title: 'Write My Story',
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { hid: 'og:description', name: 'og:description',  content: 'Aprenda sobre seu mapa astral de forma simples e divertida.' },
-      { hid: "og:image", name:"og:image", content:"~/static/images/teaser.png"},
-      { hid: 'description', name: 'description',  content: 'Aprenda sobre seu mapa astral de forma simples e divertida' },
-      { hid: 'keyword', name: 'keyword', content: 'astrologia, mapa astral, autoconhecimento, signos, personagens, história, astro' },
+      { hid: 'og:description', name: 'og:description',  content: 'Free personalized astrology made easy, fun and simple.' },
+      { hid: "og:image", name:"og:image", content:"./teaser.png"},
+      { hid: 'description', name: 'description',  content: 'Free personalized astrology made easy, fun and simple.' },
+      { hid: 'keyword', name: 'keyword', content: 'astrology, horoscope, horoscopes, birth chart, horoscope 2020, free horoscopes, ascendant, aries, taurus, gemini, cancer, leo, virgo, libra, scorpio, sagittarius, capricorn, aquarius, pisces, zodiac, sun sign, self knowledge, sign, characters, story' },
     ],
     link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
   },
