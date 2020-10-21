@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>Calculate Your Natal Chart</h1>
+    <h1>Calculate Your Astrological Birth Chart</h1>
     <v-row justify="center" align="center">
       <v-col cols="12" sm="8" md="6">
         <form>
