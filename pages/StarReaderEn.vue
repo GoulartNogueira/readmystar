@@ -5,6 +5,9 @@
       <div>
         <div class="title">
           <h2>My Natal Chart</h2>
+          <div style="position: absolute; right: 0; z-index: 6">
+            <v-btn @click="RandomFill()">Random Fill</v-btn>
+          </div>
         </div>
         <div class="row">
           <div
@@ -803,11 +806,18 @@ export default {
           sign: '',
           house: '',
           keywords: {
-            basic: [],
+            basic: [
+              'the awakener',
+              'altruism',
+              'inventiveness',
+              'originality',
+              'sudden action',
+              'unconventionality',
+            ],
             positive: [],
             negative: [],
           },
-          archetypes: [],
+          archetypes: ['eccentric', 'fool', 'free spirit', 'rebel', 'inventor'],
           chars: [],
           char: { name: '', tribe: '', place: '' },
         },
@@ -822,7 +832,7 @@ export default {
             positive: [],
             negative: [],
           },
-          archetypes: [],
+          archetypes: ['prophet', 'dreamer', 'crackpot', 'drinker'],
           chars: [],
           char: { name: '', tribe: '', place: '' },
         },
@@ -837,7 +847,7 @@ export default {
             positive: [],
             negative: [],
           },
-          archetypes: [],
+          archetypes: ['magician', 'healer', 'devil', 'witch'],
           chars: [],
           char: { name: '', tribe: '', place: '' },
         },
@@ -882,6 +892,10 @@ export default {
   //     Learn more about async-await here: https://javascript.info/async-await
 
   methods: {
+    selectRandom(lista) {
+      const random = Math.floor(Math.random() * lista.length)
+      return lista[random]
+    },
     filteredAspects() {
       return this.myChart.aspects.filter(
         (eachaspect) =>
@@ -926,6 +940,25 @@ export default {
         )
         .concat('.\n\n', this.CharName(Char1).toUpperCase(), ':')
       return HistIntro
+    },
+    RandomFill() {
+      let PlanetId
+      for (PlanetId in this.planets) {
+        this.planets[PlanetId].char.name = this.selectRandom(
+          this.planets[PlanetId].archetypes
+        )
+        this.planets[PlanetId].char.tribe = this.selectRandom(
+          this.signs_list[this.myChart.planets[PlanetId].sign].tribe
+        )
+        if (
+          'place' in this.planets[PlanetId].char &&
+          !isNaN(this.myChart.planets[PlanetId].house - 0)
+        ) {
+          this.planets[PlanetId].char.place = this.selectRandom(
+            this.houses_info[this.myChart.planets[PlanetId].house - 1]
+          )
+        }
+      }
     },
     gpt(myAspectId) {
       /* constructor(textinput) {

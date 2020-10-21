@@ -38,8 +38,8 @@
       Para ler um mapa astral, é preciso compor e combinar os significados dos
       <nuxt-link :to="{ path: '/', hash: '#planetas' }">planetas</nuxt-link>,
       dos <nuxt-link :to="{ path: '/', hash: '#signos' }">signos</nuxt-link> e
-      das <nuxt-link :to="{ path: '/', hash: '#casas' }">casas</nuxt-link>. Além
-      dos
+      das <nuxt-link :to="{ path: '/', hash: '#houses' }">casas</nuxt-link>.
+      Além dos
       <nuxt-link :to="{ path: '/', hash: '#aspectos' }">aspectos</nuxt-link>.
     </p>
     <p>
@@ -74,11 +74,16 @@
       <li>Aquário</li>
       <li>Peixes</li>
     </ul>
-    <h3 id="casas">Casas</h3>
+    <h3 id="houses">Ascendente e Casas</h3>
     <p>
-      Existem também 12 casas, que é a posição relativa de um astro no céu. Um
-      que está se pondo no oeste, por exemplo, está na casa 7. Já um planeta no
-      topo do céu (onde o Sol fica ao meio dia) está na casa 9.
+      Existem também 12 casas, definidas pelo horário de nascimento, pois
+      representam a posição relativa no céu. O signo que que se eleva no
+      horizonte leste define seu ascendente e esta posição define o início da
+      primeira casa.
+    </p>
+    <p>
+      Assim, um planeta que está se pondo no oeste, por exemplo, está na casa 7.
+      Já um planeta no topo do céu (onde o Sol fica ao meio dia) está na casa 9.
     </p>
     <h3 id="aspectos">Aspectos</h3>
     <p>
