@@ -1,22 +1,22 @@
 <template>
   <div>
-    <h1>Calcule seu Mapa Astral</h1>
+    <h1>Calculate Your Natal Chart</h1>
     <v-row justify="center" align="center">
       <v-col cols="12" sm="8" md="6">
         <form>
           <v-row>
-            <DatePicker v-model="BirthdayDate" />
-            <TimePicker v-model="BirthdayTime" />
+            <DatePicker v-model="BirthdayDate" label="Birthday" />
+            <TimePicker v-model="BirthdayTime" label="Birth Time" />
             <v-text-field
               v-model="BirthdayCity"
               :rules="CityRules"
-              label="Cidade de Nascimento"
+              label="Birthday City"
               prepend-icon="mdi-map-marker"
             ></v-text-field>
             <v-text-field
               v-if="Timezone"
               v-model="Timezone"
-              label="Fuso Horário (UTC)"
+              label="Timezone"
               prepend-icon="mdi-map-clock"
             ></v-text-field>
             <address v-if="citydescription">{{ citydescription }}</address>
@@ -36,14 +36,14 @@
               x-large
               :loading="LoadingChart"
               @click="fetch_my_map()"
-              >Calcule</v-btn
+              >Calculate</v-btn
             >
           </v-row>
         </form>
       </v-col>
     </v-row>
     <StarReader v-if="ResponseAvailable" :my-chart="MyChart" />
-    <LearnMore />
+    <LearnMore v-if="false" />
   </div>
 </template>
 
@@ -76,7 +76,7 @@ export default {
   }),
   methods: {
     fetch_my_map() {
-      /* this.LoadingChart = true */
+      this.LoadingChart = true
       this.$emit('submitclicked')
       const url = new URL('https://flatlib.vercel.app/api/astro')
       console.log(url)
@@ -117,7 +117,7 @@ export default {
               this.citydescription = this.MyChart.parameters.latlong[3].display_name
             }
           }
-          /* this.LoadingChart = false */
+          this.LoadingChart = false
           this.ResponseAvailable = true
           console.log(this.MyChart)
         })

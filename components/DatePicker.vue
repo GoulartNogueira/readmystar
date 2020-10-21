@@ -10,7 +10,7 @@
     <template v-slot:activator="{ on, attrs }">
       <v-text-field
         v-model="date"
-        label="Data de Nascimento"
+        :label="label"
         prepend-icon="mdi-calendar"
         readonly
         v-bind="attrs"
@@ -29,6 +29,12 @@
 
 <script>
 export default {
+  props: {
+    label: {
+      type: String,
+      default: 'Data de Nascimento',
+    },
+  },
   data: () => ({
     date: null,
     menu: false,

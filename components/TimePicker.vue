@@ -13,7 +13,7 @@
     <template v-slot:activator="{ on, attrs }">
       <v-text-field
         v-model="time"
-        label="Hora do Nascimento"
+        :label="label"
         prepend-icon="mdi-clock-time-four-outline"
         readonly
         v-bind="attrs"
@@ -32,6 +32,12 @@
 
 <script>
 export default {
+  props: {
+    label: {
+      type: String,
+      default: 'Hora do Nascimento',
+    },
+  },
   data() {
     return {
       time: null,

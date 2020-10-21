@@ -4,7 +4,7 @@
     <div id="results">
       <div>
         <div class="title">
-          <h2>My Characters</h2>
+          <h2>My Natal Chart</h2>
         </div>
         <div class="row">
           <div
@@ -15,32 +15,34 @@
             <v-card v-if="myChart.planets[planet_id]" elevation="2" shaped>
               <v-card-title>
                 <v-icon large left> {{ planet.symbol }} </v-icon>
+                <!-- <v-badge :content="planet.symbol" overlap> -->
                 <span class="title font-weight-light">{{ planet.name }}</span>
+                <!-- </v-badge> -->
               </v-card-title>
               <v-card-subtitle>
-                in
+                is in
                 {{ signs_list[myChart.planets[planet_id].sign]['name'] }}
                 ({{ signs_list[myChart.planets[planet_id].sign]['symbol'] }})
                 <span v-if="myChart.planets[planet_id].house">
-                  at House {{ myChart.planets[planet_id].house }}</span
+                  , at House {{ myChart.planets[planet_id].house }}</span
                 >
               </v-card-subtitle>
               <v-card-text>
                 {{ planet.char.name }}
                 <span v-if="planet.char.tribe"
-                  >da tribo dos {{ planet.char.tribe }}</span
+                  >from the tribe of the {{ planet.char.tribe }}</span
                 >
                 <span v-if="planet.char.place"
-                  >está {{ planet.char.place }}</span
+                  >stands in the {{ planet.char.place }}</span
                 >
               </v-card-text>
               <v-card-actions>
                 <v-select
                   v-model="planet.char.name"
                   class="char-selector"
-                  label="Escolha seu herói"
+                  label="Choose a character"
                   :append-outer-icon="planet.symbol"
-                  :items="planet.keywords.basic"
+                  :items="planet.archetypes"
                 >
                 </v-select>
               </v-card-actions>
@@ -49,15 +51,11 @@
                 <v-select
                   v-model="planet.char.tribe"
                   class="char-selector"
-                  label="Escolha sua tribo"
+                  label="Choose a tribe"
                   :append-outer-icon="
                     signs_list[myChart.planets[planet_id].sign]['symbol']
                   "
-                  :items="
-                    signs_list[myChart.planets[planet_id].sign]['keywords'][
-                      'basic'
-                    ]
-                  "
+                  :items="signs_list[myChart.planets[planet_id].sign]['tribe']"
                 >
                 </v-select>
               </v-card-actions>
@@ -66,7 +64,7 @@
                   v-if="myChart.planets[planet_id].house"
                   v-model="planet.char.place"
                   class="char-selector"
-                  label="Escolha seu cenário"
+                  label="Choose a place"
                   :append-outer-icon="
                     myChart.planets[planet_id].house.toString()
                   "
@@ -82,11 +80,11 @@
     <v-divider></v-divider>
     <div class="container">
       <div class="title">
-        <h2>Minha História</h2>
+        <h2>My Aspects</h2>
       </div>
       <div class="row">
         <div
-          v-for="(myaspect, myAspectId) in myChart.aspects"
+          v-for="(myaspect, myAspectId) in filteredAspects(myChart.aspects)"
           :key="myAspectId"
           class="col-sm-6 col-lg-3"
         >
@@ -107,7 +105,7 @@
                 planets[myaspect[0][0]].name
               }}</span>
               <span v-else>{{ myaspect[0][0] }}</span>
-              em {{ aspects[myaspect[1]].translation }} com
+              in {{ myaspect[1] }} with
               <span v-if="planets[myaspect[0][1]]">{{
                 planets[myaspect[0][1]].name
               }}</span>
@@ -115,33 +113,44 @@
             </v-card-text>
             <div
               v-if="
+                planets[myaspect[0][1]] &&
+                planets[myaspect[0][0]] &&
                 planets[myaspect[0][1]].char.name &&
                 planets[myaspect[0][0]].char.name
               "
             >
-              <span v-if="planets[myaspect[0][0]]">{{
-                planets[myaspect[0][0]].char.name
-              }}</span>
-              <span v-else> {{ myaspect[0][0] }} </span>
-              <span> e </span>
-              <span v-if="planets[myaspect[0][1]]">{{
-                planets[myaspect[0][1]].char.name
-              }}</span>
-              <span v-else> {{ myaspect[0][1] }} </span>
+              <span>{{ CharName(myaspect[0][0]) }}</span>
+
               {{ aspects[myaspect[1]].history[0] }}
+
+              <span> {{ CharName(myaspect[0][1]) }}.</span>
             </div>
             <v-btn
               v-if="
-                false /*excluir essa linha para habilitar*/ &&
                 planets[myaspect[0][1]].char.name &&
-                planets[myaspect[0][0]].char.name
+                planets[myaspect[0][0]].char.name &&
+                planets[myaspect[0][0]].tribe &&
+                planets[myaspect[0][1]].tribe &&
+                planets[myaspect[0][0]].place &&
+                planets[myaspect[0][1]].place
               "
               :id="'btn'.concat(myAspectId)"
+              :loading="LoadingStory"
+              :disabled="LoadingStory"
               elevation="2"
               small
               @click="gpt(myAspectId)"
-              >História</v-btn
             >
+              Generate Story
+            </v-btn>
+            <p
+              v-if="
+                myChart.aspects[myAspectId].hasOwnProperty('story') &&
+                'story' in myChart.aspects[myAspectId]
+              "
+            >
+              {{ myChart.aspects[myAspectId].story }}
+            </p>
           </v-card>
           <!-- planets[myaspect[0][0]].char.name.concat(
               ' e ',
@@ -197,10 +206,12 @@ export default {
   data() {
     return {
       historydone: false,
+      LoadingStory: false,
       myhistory: null,
       signs_list: {
         '': {
           name: '',
+          nome: '',
           symbol: '',
           keywords: {
             basic: [],
@@ -211,18 +222,20 @@ export default {
           tribo: [''],
         },
         Aries: {
-          name: 'Áries',
+          name: 'Aries',
+          nome: 'Áries',
           symbol: '♈',
           keywords: {
             basic: ['Self-esteem', 'initiative', 'pioneering'],
             positive: ['Ambition', 'courage', 'enterprise'],
             negative: ['Self-will', 'temper', 'brusqueness', 'overbearance'],
           },
-          tribe: ['nomads', 'amazons', 'frantic', 'conquerors', 'pioneers'],
+          tribe: ['nomads', 'amazons', 'berserks', 'conquerors', 'pioneers'],
           tribo: ['nômades', 'amazonas', 'conquistadores', 'pioneiros'],
         },
         Taurus: {
-          name: 'Touro',
+          name: 'Taurus',
+          nome: 'Touro',
           symbol: '♉',
           keywords: {
             basic: ['Determination', 'interest in mundane affairs'],
@@ -232,9 +245,9 @@ export default {
           tribe: [
             'farmers',
             'traditionalists',
-            'earth people',
+            'earthy people',
             'bankers',
-            'pleasure lovers',
+            'enjoyers',
           ],
           tribo: [
             'fazendeiros',
@@ -245,7 +258,8 @@ export default {
           ],
         },
         Gemini: {
-          name: 'Gêmeos',
+          name: 'Gemini',
+          nome: 'Gêmeos',
           symbol: '♊',
           keywords: {
             basic: [
@@ -256,11 +270,12 @@ export default {
             positive: [],
             negative: [],
           },
-          tribe: ['writers', 'curious', 'scholars', 'exhibitionists'],
+          tribe: ['writers', 'curious', 'scholars', 'butterflies'],
           tribo: ['escritores', 'curiosos', 'estudantes', 'exibicionistas'],
         },
         Cancer: {
-          name: 'Câncer',
+          name: 'Cancer',
+          nome: 'Câncer',
           symbol: '♋',
           keywords: {
             basic: [
@@ -274,8 +289,8 @@ export default {
           tribe: [
             'helpers',
             'daydreamers',
-            'romantics',
-            'spiritual counselors',
+            'romanticists',
+            'spiritual advisors',
           ],
           tribo: [
             'ajudantes',
@@ -285,25 +300,27 @@ export default {
           ],
         },
         Leo: {
-          name: 'Leão',
+          name: 'Leo',
+          nome: 'Leão',
           symbol: '♌',
           keywords: {
-            basic: [],
+            basic: [''],
             positive: [],
             negative: [],
           },
-          tribe: ['chiefs', 'luxury lovers', 'stars', 'pashas'],
+          tribe: ['bosses', 'greatests', 'luxurious', 'stars', 'pashas'],
           tribo: ['chefes', 'amantes do luxo', 'estrelas'],
         },
         Virgo: {
-          name: 'Virgem',
+          name: 'Virgo',
+          nome: 'Virgem',
           symbol: '♍',
           keywords: {
             basic: [],
             positive: [],
             negative: [],
           },
-          tribe: ['efficient people', 'frugal', 'primary teachers', 'masters'],
+          tribe: ['practical people', 'frugal', 'school teachers', 'masters'],
           tribo: [
             'pessoas eficientes',
             'frugais',
@@ -313,6 +330,7 @@ export default {
         },
         Libra: {
           name: 'Libra',
+          nome: 'Libra',
           symbol: '♎',
           keywords: {
             basic: [],
@@ -333,7 +351,8 @@ export default {
           ],
         },
         Scorpio: {
-          name: 'Escorpião',
+          name: 'Scorpio',
+          nome: 'Escorpião',
           symbol: '♏',
           keywords: {
             basic: [],
@@ -350,7 +369,8 @@ export default {
           ],
         },
         Sagittarius: {
-          name: 'Sagitário',
+          name: 'Sagittarius',
+          nome: 'Sagitário',
           symbol: '♐',
           keywords: {
             basic: [],
@@ -375,7 +395,8 @@ export default {
           ],
         },
         Capricorn: {
-          name: 'Capricórnio',
+          name: 'Capricorn',
+          nome: 'Capricórnio',
           symbol: '♑',
           keywords: {
             basic: [],
@@ -399,7 +420,8 @@ export default {
           ],
         },
         Aquarius: {
-          name: 'Aquário',
+          name: 'Aquarius',
+          nome: 'Aquário',
           symbol: '♒',
           keywords: {
             basic: [],
@@ -422,7 +444,8 @@ export default {
           ],
         },
         Pisces: {
-          name: 'Peixes',
+          name: 'Pisces',
+          nome: 'Peixes',
           symbol: '♓',
           keywords: {
             basic: [],
@@ -449,6 +472,60 @@ export default {
       },
       houses: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
       houses_info: [
+        ['drawbridge', 'outside world', 'entrance hall', 'display window'],
+        ['financial world', 'tesaury'],
+        ['library', 'everyday world', 'marketplace', 'school'],
+        [
+          'cradle',
+          'inner world',
+          'homeland',
+          'fantasies',
+          "child's room",
+          'world of childhood',
+        ],
+        ['glitter world', 'playground', 'spotlight', 'stage'],
+        ['workrooms', 'hospital', 'professional world', 'fitness park'],
+        [
+          'marriage bed',
+          'sacred mountain',
+          'world of partnership',
+          'world of the intimate other',
+        ],
+        [
+          'cellar',
+          'cemetery',
+          'red-light district',
+          'shadow world',
+          'underground',
+          'danger zone',
+          'underworld',
+        ],
+        ['pulpit', 'university', 'travel agency', 'holy land', 'wide world'],
+        ['tower', 'hall of fame', 'serious world', 'professional life'],
+        [
+          'guest room',
+          'group room',
+          'world of community',
+          'world of sisters and brothers',
+        ],
+        [
+          'hermitage',
+          'remoteness',
+          'isolation',
+          'other worlds',
+          'roof of the world',
+        ],
+        [
+          'porão, cemitério, boca do lixo, mundo das sombras, subterraneo, zona de perigo, submundo',
+        ],
+        [
+          'púlpito, universidade, agencia de viagens, terra santa, mundão velho e sem porteira',
+        ],
+        ['torre, salão da fama, mundo da seriedade, vida profissional'],
+        [
+          'quarto de hospedes, sala do grupo, mundo comunidade, mundo de irmãos e irmãs',
+        ],
+        ['ermida, bem longe, isolamento, outros mundos, topo do mundo'],
         ['Beginnings', 'early environment', 'personality', 'physical body'],
         ['Finance', 'freedom given by money'],
         ['Lower mind and speaking', 'short journeys', 'brothers and sisters'],
@@ -465,7 +542,6 @@ export default {
           'relations with employers and employees',
           'health and sickness',
         ],
-        ['Partnership', 'marriage', 'the public'],
         ['Legacies', 'cause of death', 'occult tragedy', 'regeneration'],
         ['Higher mind', 'religion, law', 'long journeys'],
         ['Profession', 'standing in community', 'the father'],
@@ -482,42 +558,66 @@ export default {
         Conjunction: {
           symbol: '☌',
           translation: 'Conjunção',
-          history: ['estão lado a lado', 'estão juntos'],
+          history: [
+            'is side by side with',
+            'At their side stands',
+            'They stand side-by-side with',
+          ],
+          historia: ['estão lado a lado', 'estão juntos'],
         },
         Opposition: {
           symbol: '☍',
           translation: 'Oposição',
           history: [
+            'is challenging',
+            'In the other side, their challenging opponent is',
+            'His/Her challenging opponent (counterbalance) is',
+          ],
+          historia: [
             'se desafiam',
             'são oponentes',
             'são opostos que se equilibram',
           ],
         },
-        Trine: { symbol: '△', translation: 'Trígono', history: ['são amigos'] },
+        Trine: {
+          history: [
+            'is friends with',
+            'Their friend is',
+            'He/She is friends with',
+          ],
+          symbol: '△',
+          translation: 'Trígono',
+          historia: ['são amigos'],
+        },
         Square: {
           symbol: '□',
           translation: 'Quadratura',
-          history: ['não se dão bem'],
+          history: ["doesn't get along at all with"],
+          historia: ['não se dão bem'],
         },
         'Semi-Square': {
           symbol: '∠',
           translation: 'Semi-Quadratura',
-          history: ['se cutucam'],
+          history: ['pokes'],
+          historia: ['se cutucam'],
         },
         Sextile: {
           symbol: '⚹',
           translation: 'Sextil',
-          history: ['estão conversando', 'se apoiam'],
+          history: ['is talking to', 'They support'],
+          historia: ['estão conversando', 'se apoiam'],
         },
         Quincunx: {
           symbol: '⚻',
           translation: 'Quincúcio',
-          history: ['tendem a ter uma relação difícil'],
+          history: ['tends to have a difficult relationship with'],
+          historia: ['tendem a ter uma relação difícil'],
         },
         Quintile: {
           symbol: '⬠',
           translation: 'Quintil',
-          history: [
+          history: ['has opportunity to create togheter with'],
+          historia: [
             'têm oportunidade de criar juntos',
             'fluem criatividade entre si',
             'criam juntos',
@@ -528,13 +628,15 @@ export default {
         'Semi-sextile': {
           symbol: '⚺',
           translation: 'Semi-Sextil',
-          history: ['compartilham um pensamento comum'],
+          history: ['shares common thoughts with'],
+          historia: ['compartilham um pensamento comum'],
         },
       },
 
       planets: {
         Sun: {
-          name: 'Sol',
+          name: 'Sun',
+          nome: 'Sol',
           symbol: '☉',
           sign: '',
           house: '',
@@ -557,11 +659,13 @@ export default {
               'animalistic qualities',
             ],
           },
+          archetypes: ['the hero', 'the father', 'the king'],
           chars: ['O Rei', 'O Herói', 'O Pai', 'O Soberano'],
           char: { name: '', tribe: '', place: '' },
         },
         Moon: {
-          name: 'Lua',
+          name: 'Moon',
+          nome: 'Lua',
           symbol: '☽',
           sign: '',
           house: '',
@@ -589,12 +693,13 @@ export default {
               'incorrect impressions',
             ],
           },
-
+          archetypes: ['the mother', 'the child'],
           chars: ['A Rainha', 'A Heroina', 'A Mãe'],
           char: { name: '', tribe: '', place: '' },
         },
         Mercury: {
-          name: 'Mercúrio',
+          name: 'Mercury',
+          nome: 'Mercúrio',
           symbol: '☿',
           sign: '',
           house: '',
@@ -608,11 +713,13 @@ export default {
               'knowledge through reason',
             ],
           },
+          archetypes: ['the trader', 'the navigator', 'the scout'],
           chars: ['O Olheiro', 'O Guia Local', 'O Comerciante', 'O Explorador'],
           char: { name: '', tribe: '', place: '' },
         },
         Venus: {
-          name: 'Vênus',
+          name: 'Venus',
+          nome: 'Vênus',
           symbol: '♀',
           sign: '',
           house: '',
@@ -628,6 +735,7 @@ export default {
               'beauty',
             ],
           },
+          archetypes: ['the muse', 'the lover', 'the beautiful one'],
           chars: [
             'A Beleza',
             'A Musa',
@@ -638,7 +746,8 @@ export default {
           char: { name: '', tribe: '', place: '' },
         },
         Mars: {
-          name: 'Marte',
+          name: 'Mars',
+          nome: 'Marte',
           symbol: '♂',
           sign: '',
           house: '',
@@ -647,11 +756,13 @@ export default {
             positive: [],
             negative: [],
           },
+          archetypes: ['the hero, the conqueror'],
           chars: ['O Guerreiro', 'O Imprudente', 'O Conquistador', 'O Malvado'],
           char: { name: '', tribe: '', place: '' },
         },
         Jupiter: {
           name: 'Jupiter',
+          nome: 'Júpiter',
           symbol: '♃',
           sign: '',
           house: '',
@@ -660,11 +771,13 @@ export default {
             positive: [],
             negative: [],
           },
+          archetypes: ['the high priest', 'the missionary', 'the just person'],
           chars: ['O Padre', 'O Homem Culto', 'O Filósofo', 'O Aristocrata'],
           char: { name: '', tribe: '', place: '' },
         },
         Saturn: {
-          name: 'Saturno',
+          name: 'Saturn',
+          nome: 'Saturno',
           symbol: '♄',
           sign: '',
           house: '',
@@ -673,6 +786,7 @@ export default {
             positive: [],
             negative: [],
           },
+          archetypes: ['the old', 'a wise man', 'the hermit'],
           chars: [
             'O Antigo',
             'O Homem Sério',
@@ -682,8 +796,54 @@ export default {
           ],
           char: { name: '', tribe: '', place: '' },
         },
+        Uranus: {
+          name: 'Uranus',
+          nome: 'Urano',
+          symbol: '⛢',
+          sign: '',
+          house: '',
+          keywords: {
+            basic: [],
+            positive: [],
+            negative: [],
+          },
+          archetypes: [],
+          chars: [],
+          char: { name: '', tribe: '', place: '' },
+        },
+        Neptune: {
+          name: 'Neptune',
+          nome: 'Netuno',
+          symbol: '♆',
+          sign: '',
+          house: '',
+          keywords: {
+            basic: [],
+            positive: [],
+            negative: [],
+          },
+          archetypes: [],
+          chars: [],
+          char: { name: '', tribe: '', place: '' },
+        },
+        Pluto: {
+          name: 'Pluto',
+          nome: 'Plutão',
+          symbol: '♇',
+          sign: '',
+          house: '',
+          keywords: {
+            basic: [],
+            positive: [],
+            negative: [],
+          },
+          archetypes: [],
+          chars: [],
+          char: { name: '', tribe: '', place: '' },
+        },
         'North Node': {
-          name: 'Nodo Norte',
+          name: 'North Node',
+          nome: 'Nodo Norte',
           symbol: '☊',
           sign: '',
           house: '',
@@ -692,11 +852,13 @@ export default {
             positive: [],
             negative: [],
           },
+          archetypes: ['purpose of existence', 'tasks to be mastered'],
           chars: ['o caminho da evolução', 'o motivo da existência'],
           char: { name: '', tribe: '', place: '' },
         },
         Asc: {
-          name: 'Ascendente',
+          name: 'Ascendant',
+          nome: 'Ascendente',
           symbol: 'ᴬˢᶜ',
           sign: '',
           house: '',
@@ -705,6 +867,7 @@ export default {
             positive: [],
             negative: [],
           },
+          archetypes: [''],
           chars: ['A Imagem', 'O Início'],
           char: { name: '', tribe: '', place: '' },
         },
@@ -719,41 +882,49 @@ export default {
   //     Learn more about async-await here: https://javascript.info/async-await
 
   methods: {
+    filteredAspects() {
+      return this.myChart.aspects.filter(
+        (eachaspect) =>
+          eachaspect[0][0] in this.planets && eachaspect[0][1] in this.planets
+        /* this.planets.hasOwnProperty(myaspect[0][0]) &&
+          this.planets.hasOwnProperty(myaspect[0][1]) */
+      )
+    },
     CharName(CharID) {
-      return this.planets[CharID].char.name
+      const capitalize = (str, lower = false) =>
+        (lower ? str.toLowerCase() : str).replace(
+          /(?:^|\s|["'([{])+\S/g,
+          (match) => match.toUpperCase()
+        )
+      const CharName = this.planets[CharID].char.name
+      return capitalize(CharName)
     },
     IntroText(myAspectId) {
-      const intro =
-        'Resumo: A seguinte história é uma metáfora sobre astrologia no formato de uma peça teatral. Cada personagem representa um planeta e seu respectivo signo. Cada cena é um aspecto, com situações que evidenciam as características e as relações entre os personagens.\n\nPERSONAGENS:'
+      const intro = ''
+      /* 'Resumo: A seguinte história é uma metáfora sobre astrologia no formato de uma peça teatral. Cada personagem representa um planeta e seu respectivo signo. Cada cena é um aspecto, com situações que evidenciam as características e as relações entre os personagens.\n\nPERSONAGENS:' */
+      /* 'Summary: The following story is a metaphor about astrology in a play format. Each character represents a planet and its corresponding sign. Each scene is an aspect, with situations that highlight the characteristics and relationships between the characters.\n\n' */
       const Char1 = this.myChart.aspects[myAspectId][0][0]
       const Char2 = this.myChart.aspects[myAspectId][0][1]
       const HistAsp = this.myChart.aspects[myAspectId][1]
       const HistIntro = intro
         .concat(
           this.CharName(Char1),
-          ' da tribo dos ',
+          ' from the tribe of the ',
           this.planets[Char1].tribe,
-          ' está ',
+          ' stands in the ',
           this.planets[Char1].place,
-          '.'
-        )
-        .concat(
+          '.',
+          this.aspects[HistAsp].history[0],
+          ' ',
           this.CharName(Char2),
-          ' da tribo dos ',
+          /* this.planets[Char2].char.name, */
+          ' from the tribe of the ',
           this.planets[Char2].tribe,
-          ' está ',
+          ', who stands in the ',
           this.planets[Char2].place,
           '.'
         )
-        .concat(
-          '\n\nCONFIGURAÇÃO:',
-          ' e ',
-          this.planets[Char2].char.name,
-          ' ',
-          this.aspects[HistAsp].history[0]
-        )
-        .concat('\n\nATO I\n\nCENA 1')
-        .concat('.\n\n', this.CharName(Char1), ':')
+        .concat('.\n\n', this.CharName(Char1).toUpperCase(), ':')
       return HistIntro
     },
     gpt(myAspectId) {
@@ -763,7 +934,8 @@ export default {
       then(result){
         alert(result);
       } */
-
+      this.myChart.aspects[myAspectId].story = 'Loading...'
+      this.LoadingStory = true
       this.$emit('historyclicked')
       console.log('starting API query...')
       // Example posting file picker input text (Browser only):
@@ -780,8 +952,9 @@ export default {
         console.log(resp)
         return resp.output
       })(textinput).then((finaltext) => {
-        this.myhistory = finaltext
+        this.myChart.aspects[myAspectId].story = finaltext
         this.historydone = true
+        this.LoadingStory = false
       })
     },
   },
