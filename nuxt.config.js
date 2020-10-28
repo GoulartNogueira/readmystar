@@ -89,7 +89,16 @@ export default {
     },
   // Build Configuration (https://go.nuxtjs.dev/config-build)
   build: {
-  extend(config, ctx) {
+   //Nuxt uses terser as minifier.
+   terser: {
+      terserOptions: {
+        compress: {
+          //this removes console.log from production environment! ;)
+          drop_console: true
+        }
+      }
+    },
+    extend(config, ctx) {
     config.module.rules.push({
       enforce: "pre",
       test: /\.(js|vue)$/,
