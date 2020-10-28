@@ -165,6 +165,10 @@ import astrojson from '~/static/astro.json'
 /* const getParams = () => import('./astro.json').then((m) => m.default || m) */
 export default {
   name: 'StarReader',
+  /* validate(data){
+    console.log(data)
+    return true
+  }, */
   props: {
     myChart: {
       type: Object,

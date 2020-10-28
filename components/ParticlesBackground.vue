@@ -26,7 +26,7 @@
   </div>
 </template>
 
-<style>
+<style scoped>
 .v-parallax__content {
   padding: 0px !important;
 }
