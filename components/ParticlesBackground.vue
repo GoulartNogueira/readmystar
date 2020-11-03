@@ -133,8 +133,8 @@ export default {
               "random": true,
               "anim": {
                 "enable": true,
-                "speed": 8.0,
-                "opacity_min": 0.3,
+                "speed": 18.0,
+                "opacity_min": 0.5,
                 "sync": false
               }
             },
@@ -157,7 +157,7 @@ export default {
             },
             "move": {
               "enable": true,
-              "speed": 0.9,
+              "speed": 0.5,
               "direction": "none",
               "random": true,
               "straight": false,
