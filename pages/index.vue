@@ -1,6 +1,48 @@
 <template>
   <div>
-    <h1>Calculate Your Astrological Birth Chart</h1>
+    <div>
+      <h2>Introduction</h2>
+      <h3>We help you to read your stars so you can write your own story.</h3>
+      <br />
+      <p>
+        In a world of seven billion people, what makes your life any different
+        from anyone else's?
+        <br />
+        What are the characteristics that define you? Your personality, your
+        traits, and your experiences all shape who you are and what you will
+        become.
+      </p>
+      <p>
+        To an extent, the planets and stars already know all of this. They know
+        your past and predict your future.
+        <br />
+        Your zodiac sign is a reflection of who you are and what is to come.
+      </p>
+      <p>
+        <nuxt-link to="/">Read My Stars</nuxt-link> offers free natal charts and
+        interpretations for all signs.
+        <br />
+        We aim to provide insight into who you are and what makes you tick.
+      </p>
+      <br />
+      We will explain your past, present, and future. We will point you in the
+      right direction and help you become the best version of yourself.
+      <br />
+      <p>
+        What are you going to do about it?
+        <br />
+        The answers are in your stars.
+      </p>
+      <p>
+        <em> This is your life. These are your stars. This is your story. </em>
+      </p>
+    </div>
+
+    <br />
+    <v-divider />
+    <br />
+
+    <h2>Calculate Your Astrological Birth Chart</h2>
     <v-row justify="center" align="center">
       <v-col cols="12" sm="8" md="6">
         <form>
@@ -58,6 +100,7 @@ import StarReader from '~/pages/StarReaderEn.vue'
 import LearnMore from '~/components/LearnMore.vue'
 
 export default {
+  layout: 'ParticlesHeaderLayout',
   components: {
     TimePicker,
     DatePicker,
