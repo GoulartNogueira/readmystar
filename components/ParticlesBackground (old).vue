@@ -1,14 +1,8 @@
 <template>
   <div class="my-cont ma-0 pa-0">
     <div id="img-back" class="abs">
-      <div id="tsparticles" class="particles-js ma-0 pa-0"></div>
-      <!-- <div :id="id" class="particles-js ma-0 pa-0"></div> -->
-      <v-col
-        id="titlespace"
-        justify="center end"
-        class="text-center"
-        align-self="center"
-      >
+      <div :id="id" class="particles-js ma-0 pa-0"></div>
+      <v-col justify="center end" class="text-center" align-self="center">
         <v-img contain src="icon_white.png" height="200px" />
         <h1>read my star</h1>
         <h3>write my story</h3>
@@ -90,7 +84,6 @@
 </style>
 
 <script>
-import { tsParticles } from 'tsparticles'
 /* eslint-disable */
 export default {
   props: {
@@ -101,17 +94,17 @@ export default {
     }
   },
   mounted () {
-    const tsParticles = require("tsparticles")
+    require('particles.js')
     this.$nextTick(() => {
       this.initParticleJS()
     })
   },
   methods: {
     initParticleJS () {
-    tsParticles.load("tsparticles", {
+        particlesJS(this.id, {
           "particles": {
             "number": {
-              "value": 60,
+              "value": 160,
               "density": {
                 "enable": true,
                 "value_area": 800
@@ -126,19 +119,27 @@ export default {
                 "width": 0,
                 "color": "#000000"
               },
+              "polygon": {
+                "nb_sides": 5
+              },
+              "image": {
+                "src": "https://readmystar.com/icon_white.png",
+                "width": 100,
+                "height": 100
+              }
             },
             "opacity": {
               "value": 0.8,
               "random": true,
               "anim": {
                 "enable": true,
-                "speed": 12.0,
-                "opacity_min": 0.6,
+                "speed": 16.0,
+                "opacity_min": 0.5,
                 "sync": false
               }
             },
             "size": {
-              "value": 2,
+              "value": 4,
               "random": true,
               "anim": {
                 "enable": true,
@@ -172,22 +173,9 @@ export default {
           "interactivity": {
             "detect_on": "canvas",
             "events": {
-              /* "onDiv": [
-                {
-                  "enable": true,
-                  "selectors": ".text-center",
-                  "mode": "bounce",
-                  "type": "rectangle"
-                },], */
-              "resize": true,
               "onhover": {
                 "enable": true,
-                "mode": "bubble",
-                "parallax":{
-                  "enable":true,
-                  "force":100,
-                  "smooth":6
-                }
+                "mode": "bubble"
               },
               "onclick": {
                 "enable": true,
@@ -204,9 +192,9 @@ export default {
               },
               "bubble": {
                 "distance": 250,
-                "size": 6,
+                "size": 3.5,
                 "duration": 2,
-                "opacity": 0.9,
+                "opacity": 0.8,
                 "speed": 3
               },
               "repulse": {
@@ -221,14 +209,8 @@ export default {
               }
             }
           },
-          "retina_detect": true,
-          "pauseOnOutsideViewport":true
-        }).then((container) => {
-    console.log("callback - tsparticles config loaded");
-  })
-  .catch((error) => {
-    console.error(error);
-  });
+          "retina_detect": true
+        })
     }
   }
 }
