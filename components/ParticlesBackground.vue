@@ -1,17 +1,17 @@
 <template>
   <div class="my-cont ma-0 pa-0">
-    <div id="img-back" class="abs">
-      <div id="tsparticles" class="particles-js ma-0 pa-0"></div>
-      <!-- <div :id="id" class="particles-js ma-0 pa-0"></div> -->
+    <div id="img-back" class="abs text-center">
+      <div :id="id" class="particles-js ma-0 pa-0 text-center"></div>
       <v-col
         id="titlespace"
-        justify="center end"
-        class="text-center"
+        class="titlespace d-flex flex-column align-content-center"
         align-self="center"
       >
         <v-img contain src="icon_white.png" height="200px" />
-        <h1>read my star</h1>
-        <h3>write my story</h3>
+        <v-col>
+          <h1>read my star</h1>
+          <h3>write my story</h3>
+        </v-col>
       </v-col>
     </div>
     <!-- <div id="img-front" class="abs" top="1">
@@ -33,8 +33,12 @@
 </template>
 
 <style scoped>
+.titlespace {
+  max-width: max-content;
+  max-height: max-content;
+}
 .v-parallax__content {
-  padding: 0px !important;
+  padding: 100px !important;
 }
 .abs {
   position: absolute;
@@ -71,9 +75,11 @@
   position: absolute;
   top: 0;
   z-index: 1;
-  width: 100%;
-  height: 500px;
   color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
 }
 .left-image {
   position: absolute;
@@ -108,7 +114,7 @@ export default {
   },
   methods: {
     initParticleJS () {
-    tsParticles.load("tsparticles", {
+    tsParticles.load(this.id, {
           "particles": {
             "number": {
               "value": 60,
@@ -172,13 +178,13 @@ export default {
           "interactivity": {
             "detect_on": "canvas",
             "events": {
-              /* "onDiv": [
-                {
-                  "enable": true,
-                  "selectors": ".text-center",
-                  "mode": "bounce",
-                  "type": "rectangle"
-                },], */
+             "onDiv": [
+              {
+                "enable": true,
+                "selectors": ".titlespace",
+                "mode": "bounce",
+                "type": "rectangle"
+              },], 
               "resize": true,
               "onhover": {
                 "enable": true,
