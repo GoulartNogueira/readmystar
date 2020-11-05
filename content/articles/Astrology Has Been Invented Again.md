@@ -1,7 +1,7 @@
 ---
 title: Intro to Read my Star
 description: We teach you how to read your stars so you can write your own story.
-img: /images/stars-backpacks-night-horizon.jpg
+img: jonathan-pielmayer-1qwNwLsOquo-unsplash.jpg
 alt: inspiring image of person looking at the stars in the horizon
 author: 
   name: GPT2 & André Goulart
