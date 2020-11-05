@@ -1,7 +1,4 @@
 @font-face {
     font-family: "ModernAntiqua";
-    src: local("ModernAntiqua"),     url(~assets/fonts/ModernAntiqua-Regular) format("truetype");}
-
-html {
-    font-family: 'Modern Antiqua', cursive;
-}
+    src: local("ModernAntiqua"), url(~assets/fonts/Modern_Antiqua/ModernAntiqua-Regular) format("truetype");
+  }
