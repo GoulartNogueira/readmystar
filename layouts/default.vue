@@ -90,12 +90,12 @@
 
 <style>
 h1 {
-  font-family: 'ModernAntiqua';
+  font-family: 'Modern Antiqua';
 }
 h2 {
-  font-family: 'ModernAntiqua';
+  font-family: 'Modern Antiqua';
 }
 h3 {
-  font-family: 'ModernAntiqua';
+  font-family: 'Modern Antiqua';
 }
 </style>
