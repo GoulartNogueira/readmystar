@@ -590,7 +590,7 @@ export default {
   },
   data () {
     return {
-      id: 'particles-instance-' + Math.floor(Math.random() * 5000)
+      id: 'particles-instance'
     }
   },
   mounted () {
