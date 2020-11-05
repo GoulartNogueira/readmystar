@@ -1,7 +1,7 @@
 ---
 title: Second article
 description: The article number 2
-img: /images/stars-backpacks-night-horizon.jpg
+img: zoltan-tasi-sJGvoX_eVhw-unsplash.jpg
 alt: inspiring image of person looking at the stars in the horizon
 author: 
   name: GPT2 & André Goulart
@@ -23,5 +23,5 @@ We aim to provide insight into who you are and what makes you tick.
 We will explain your past, present, and future. We will point you in the right direction and help you become the best version of yourself.
 What are you going to do about it?
 The answers are in your stars.
-This is your life. These are your stars.
+*This is your life. These are your stars.*
 This is your story.

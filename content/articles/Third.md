@@ -1,7 +1,7 @@
 ---
 title: 3rd one
 description: #3
-img: /images/stars-backpacks-night-horizon.jpg
+img: adam-niescioruk-rONxy5SIdHw-unsplash.jpg
 alt: inspiring image of person looking at the stars in the horizon
 author: 
   name: GPT2 & André Goulart
