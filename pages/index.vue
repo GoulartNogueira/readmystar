@@ -1,7 +1,7 @@
 <template>
   <div>
-    <div>
-      <h2>Introduction</h2>
+    <h2>Introduction</h2>
+    <div id="Introduction" class="centered">
       <h3>We help you to read your stars so you can write your own story.</h3>
       <br />
       <p>
@@ -92,6 +92,12 @@
     <LearnMore v-if="false" />
   </div>
 </template>
+
+<style scoped>
+.centered {
+  text-align: center;
+}
+</style>
 
 <script>
 import DatePicker from '~/components/DatePicker.vue'
