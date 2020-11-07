@@ -117,7 +117,41 @@ pwa: {
     short_name: "Read My Star",
     description: "We help you to read your stars so you can write your own story.",
     start_url: "https://readmystar.com/",
-    useWebmanifestExtension: false
+    useWebmanifestExtension: false,
+    //IOS Categories List: https://developer.apple.com/app-store/categories/
+    categories: ["lifestyle", "reference", "entertainment", "education"],
+    screenshots : [
+  {
+    "src": "/images/screenshots/screely-1604707550350.png",
+    "sizes": "1366x800",
+    "type": "image/png"
+  },
+  {
+    "src": "/images/screenshots/Screen Shot 2020-11-06 at 20.59.43.png",
+    "sizes": "2960x1440",
+    "type": "image/png"
+  },
+  {
+    "src": "/images/screenshots/Screen Shot 2020-11-06 at 21.00.03.png",
+    "sizes": "2960x1440",
+    "type": "image/png"
+  },
+  {
+    "src": "/images/screenshots/Screen Shot 2020-11-06 at 21.00.24.png",
+    "sizes": "1440x2960",
+    "type": "image/png"
+  },
+  {
+    "src": "/images/screenshots/Screen Shot 2020-11-06 at 21.01.37.png",
+    "sizes": "1440x2960",
+    "type": "image/png"
+  },
+  {
+    "src": "/images/screenshots/Screen Shot 2020-11-06 at 21.02.30.png",
+    "sizes": "1440x2960",
+    "type": "image/png"
+  }
+]
   }
 },
 }
