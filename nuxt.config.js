@@ -110,4 +110,14 @@ export default {
     })
   }
 },
+pwa: {
+  manifest: {
+    name: 'Read My Star',
+    lang: 'en',
+    short_name: "Read My Star",
+    description: "We help you to read your stars so you can write your own story.",
+    start_url: "https://readmystar.com/",
+    useWebmanifestExtension: false
+  }
+},
 }
