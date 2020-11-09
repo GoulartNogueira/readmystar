@@ -10,23 +10,36 @@ export default {
   // Global page headers (https://go.nuxtjs.dev/config-head)
   head: {
     htmlAttrs: {
-      lang:"en",
+      lang: 'en',
     },
     titleTemplate: 'Read My Star - %s',
     title: 'Write My Story',
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { hid: 'og:description', name: 'og:description',  content: 'Free personalized astrology made easy, fun and simple.' },
-      { hid: "og:image", name:"og:image", content:"/icon.png"},
-      { hid: 'description', name: 'description',  content: 'Free personalized astrology made easy, fun and simple.' },
-      { hid: 'keyword', name: 'keyword', content: 'astrology, horoscope, horoscopes, birth chart, horoscope 2020, free horoscopes, ascendant, aries, taurus, gemini, cancer, leo, virgo, libra, scorpio, sagittarius, capricorn, aquarius, pisces, zodiac, sun sign, self knowledge, sign, characters, story' },
+      {
+        hid: 'og:description',
+        name: 'og:description',
+        content: 'Free personalized astrology made easy, fun and simple.',
+      },
+      { hid: 'og:image', name: 'og:image', content: '/icon.png' },
+      {
+        hid: 'description',
+        name: 'description',
+        content: 'Free personalized astrology made easy, fun and simple.',
+      },
+      {
+        hid: 'keyword',
+        name: 'keyword',
+        content:
+          'astrology, horoscope, horoscopes, birth chart, horoscope 2020, free horoscopes, ascendant, aries, taurus, gemini, cancer, leo, virgo, libra, scorpio, sagittarius, capricorn, aquarius, pisces, zodiac, sun sign, self knowledge, sign, characters, story',
+      },
     ],
     link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
   },
 
   // Global CSS (https://go.nuxtjs.dev/config-css)
-  css: [],
+  css: ['~/layouts/global.css'],
 
   // Plugins to run before rendering page (https://go.nuxtjs.dev/config-plugins)
   plugins: [],
@@ -83,78 +96,82 @@ export default {
     },
   },
   router: {
-      scrollBehavior(to) {
-        if (to.hash) {
-          return window.scrollTo({ top: document.querySelector(to.hash).offsetTop + window.innerHeight, behavior: 'smooth' });
-        }
-        return window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
+    scrollBehavior(to) {
+      if (to.hash) {
+        return window.scrollTo({
+          top: document.querySelector(to.hash).offsetTop + window.innerHeight,
+          behavior: 'smooth',
+        })
+      }
+      return window.scrollTo({ top: 0, behavior: 'smooth' })
     },
+  },
   // Build Configuration (https://go.nuxtjs.dev/config-build)
   build: {
-   //Nuxt uses terser as minifier.
-   terser: {
+    // Nuxt uses terser as minifier.
+    terser: {
       terserOptions: {
         compress: {
-          //this removes console.log from production environment! ;)
-          drop_console: true
-        }
-      }
+          // this removes console.log from production environment! ;)
+          drop_console: true,
+        },
+      },
     },
     extend(config, ctx) {
-    config.module.rules.push({
-      enforce: "pre",
-      test: /\.(js|vue)$/,
-      loader: "eslint-loader",
-      exclude: /(node_modules)/,
-      options: {
-        fix: true
-      }
-    })
-  }
-},
-pwa: {
-  manifest: {
-    name: 'Read My Star',
-    lang: 'en',
-    short_name: "Read My Star",
-    description: "We help you to read your stars so you can write your own story.",
-    start_url: "https://readmystar.com/",
-    useWebmanifestExtension: false,
-    //IOS Categories List: https://developer.apple.com/app-store/categories/
-    categories: ["lifestyle", "reference", "entertainment", "education"],
-    screenshots : [
-  {
-    "src": "/images/screenshots/screely-1604707550350.png",
-    "sizes": "1366x800",
-    "type": "image/png"
+      config.module.rules.push({
+        enforce: 'pre',
+        test: /\.(js|vue)$/,
+        loader: 'eslint-loader',
+        exclude: /(node_modules)/,
+        options: {
+          fix: true,
+        },
+      })
+    },
   },
-  {
-    "src": "/images/screenshots/Screen Shot 2020-11-06 at 20.59.43.png",
-    "sizes": "2960x1440",
-    "type": "image/png"
+  pwa: {
+    manifest: {
+      name: 'Read My Star',
+      lang: 'en',
+      short_name: 'Read My Star',
+      description:
+        'We help you to read your stars so you can write your own story.',
+      start_url: 'https://readmystar.com/',
+      useWebmanifestExtension: false,
+      // IOS Categories List: https://developer.apple.com/app-store/categories/
+      categories: ['lifestyle', 'reference', 'entertainment', 'education'],
+      screenshots: [
+        {
+          src: '/images/screenshots/screely-1604707550350.png',
+          sizes: '1366x800',
+          type: 'image/png',
+        },
+        {
+          src: '/images/screenshots/Screen Shot 2020-11-06 at 20.59.43.png',
+          sizes: '2960x1440',
+          type: 'image/png',
+        },
+        {
+          src: '/images/screenshots/Screen Shot 2020-11-06 at 21.00.03.png',
+          sizes: '2960x1440',
+          type: 'image/png',
+        },
+        {
+          src: '/images/screenshots/Screen Shot 2020-11-06 at 21.00.24.png',
+          sizes: '1440x2960',
+          type: 'image/png',
+        },
+        {
+          src: '/images/screenshots/Screen Shot 2020-11-06 at 21.01.37.png',
+          sizes: '1440x2960',
+          type: 'image/png',
+        },
+        {
+          src: '/images/screenshots/Screen Shot 2020-11-06 at 21.02.30.png',
+          sizes: '1440x2960',
+          type: 'image/png',
+        },
+      ],
+    },
   },
-  {
-    "src": "/images/screenshots/Screen Shot 2020-11-06 at 21.00.03.png",
-    "sizes": "2960x1440",
-    "type": "image/png"
-  },
-  {
-    "src": "/images/screenshots/Screen Shot 2020-11-06 at 21.00.24.png",
-    "sizes": "1440x2960",
-    "type": "image/png"
-  },
-  {
-    "src": "/images/screenshots/Screen Shot 2020-11-06 at 21.01.37.png",
-    "sizes": "1440x2960",
-    "type": "image/png"
-  },
-  {
-    "src": "/images/screenshots/Screen Shot 2020-11-06 at 21.02.30.png",
-    "sizes": "1440x2960",
-    "type": "image/png"
-  }
-]
-  }
-},
 }
