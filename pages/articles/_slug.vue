@@ -5,7 +5,12 @@
     <div class="relative lg:w-1/2 xs:w-full xs:h-84 lg:h-full post-left">
       <v-img
         :alt="article.alt"
-        :src="require(`~/assets/images/articles/${article.img}`)"
+        :src="
+          require(`~/assets/images/articles/${article.img}?size=1300&format=webp`)
+        "
+        :lazy-src="
+          require(`~/assets/images/articles/${article.img}?size=400&format=webp`)
+        "
         class="absolute h-full w-full object-cover"
         aspect-ratio="2"
       >
