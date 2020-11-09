@@ -99,8 +99,6 @@
 import { tsParticles } from 'tsparticles'
 /* eslint-disable */
 export default {
-  props: {
-  },
   data () {
     return {
       id: 'particles-instance-' + Math.floor(Math.random() * 5000)
