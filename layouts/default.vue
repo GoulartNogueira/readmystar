@@ -117,16 +117,7 @@ export default {
 </script>
 
 <style>
-h1 {
-  font-family: 'Modern Antiqua';
-}
-h2 {
-  font-family: 'Modern Antiqua';
-}
-h3 {
-  font-family: 'Modern Antiqua';
-}
-v-list-item-title {
-  font-family: 'Modern Antiqua';
+body {
+  margin: 0;
 }
 </style>

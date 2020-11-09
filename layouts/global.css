@@ -1,4 +1,24 @@
-@font-face {
+/*@font-face {
     font-family: "ModernAntiqua";
-    src: local("ModernAntiqua"), url(~assets/fonts/Modern_Antiqua/ModernAntiqua-Regular) format("truetype");
+    src: local("ModernAntiqua"), url(~assets/fonts/Modern_Antiqua/ModernAntiqua-Regular.ttf) format("truetype");
+    font-family: "DavidLibre";
+    src: local("DavidLibre"), url(~assets/fonts/David_Libre/DavidLibre-Regular.ttf) format("truetype");
+    font-family: "OpenSans";
+    src: local("OpenSans"), url(~assets/fonts/Open_Sans/OpenSans-Regular.ttf) format("truetype");
   }
+*/
+h1 {
+  font-family: 'Modern Antiqua';
+}
+h2 {
+  font-family: 'Modern Antiqua';
+}
+h3 {
+  font-family: 'David Libre';
+}
+v-list-item-title {
+  font-family: 'David Libre';
+}
+html, body, p{
+  font-family: 'OpenSans';
+}
