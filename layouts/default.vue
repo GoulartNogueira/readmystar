@@ -32,7 +32,7 @@
       shrink-on-scroll
       prominent
       :src="
-        require(`~/assets/images/articles/ryan-hutton-Jztmx9yqjBw-unsplash.jpg?resize&size=300&format=webp`)
+        require(`~/assets/images/articles/ryan-hutton-Jztmx9yqjBw-unsplash.jpg`)
       "
       fade-img-on-scroll
       scroll-target="#scrolling-techniques-5"

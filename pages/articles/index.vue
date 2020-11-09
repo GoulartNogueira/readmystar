@@ -13,6 +13,18 @@
             class="flex transition-shadow duration-150 ease-in-out shadow-sm hover:shadow-md xxlmax:flex-col"
           >
             <!-- :src="article.img" -->
+            <!-- <div v-lazy-container="{ selector: 'img' }">
+              <img
+                v-if="article.img"
+                :data-src="require(`~/assets/images/articles/${article.img}`)"
+                :data-loading="
+                  require(`~/assets/images/articles/${article.img}?lqip`)
+                "
+                class="h-48 xxlmin:w-1/2 xxlmax:w-full object-cover"
+                aspect-ratio="2.75"
+              />
+            </div> -->
+
             <v-img
               v-if="article.img"
               :src="require(`~/assets/images/articles/${article.img}`)"

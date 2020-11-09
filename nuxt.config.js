@@ -60,8 +60,9 @@ export default {
         id: 'UA-179945653-1',
       },
     ],
+    // https://www.npmjs.com/package/@aceforth/nuxt-optimized-images
+    '@aceforth/nuxt-optimized-images',
   ],
-
   // Modules (https://go.nuxtjs.dev/config-modules)
   modules: [
     // https://go.nuxtjs.dev/axios
@@ -128,6 +129,9 @@ export default {
         },
       })
     },
+  },
+  optimizedImages: {
+    optimizeImages: true
   },
   pwa: {
     manifest: {
