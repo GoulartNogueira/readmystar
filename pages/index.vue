@@ -45,7 +45,7 @@
     <h2>Calculate Your Astrological Birth Chart</h2>
     <v-row justify="center" align="center">
       <v-col cols="12" sm="8" md="6">
-        <form>
+        <form @submit.prevent="fetch_my_map()">
           <v-row>
             <DatePicker v-model="BirthdayDate" label="Birthday" />
             <TimePicker v-model="BirthdayTime" label="Birth Time" />
@@ -69,6 +69,7 @@
             </a>
             <v-btn
               id="submit"
+              type="submit"
               :disabled="
                 !(
                   BirthdayCity !== null &&
@@ -81,7 +82,6 @@
               elevation="2"
               x-large
               :loading="LoadingChart"
-              @click="fetch_my_map()"
               >Calculate</v-btn
             >
           </v-row>
