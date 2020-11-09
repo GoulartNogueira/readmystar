@@ -12,12 +12,19 @@
             :to="{ name: 'articles-slug', params: { slug: article.slug } }"
             class="flex transition-shadow duration-150 ease-in-out shadow-sm hover:shadow-md xxlmax:flex-col"
           >
+            <!-- :src="article.img" -->
             <v-img
               v-if="article.img"
-              class="h-48 xxlmin:w-1/2 xxlmax:w-full object-cover"
               :src="require(`~/assets/images/articles/${article.img}`)"
+              class="h-48 xxlmin:w-1/2 xxlmax:w-full object-cover"
               aspect-ratio="2.75"
-            />
+            >
+              <template v-slot:placeholder>
+                <v-row class="fill-height ma-0" align="center" justify="center">
+                  <v-progress-circular indeterminate></v-progress-circular>
+                </v-row>
+              </template>
+            </v-img>
           </NuxtLink>
           <div
             class="p-6 flex flex-col justify-between xxlmin:w-1/2 xxlmax:w-full"

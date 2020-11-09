@@ -25,12 +25,15 @@
         </v-list-item>
       </v-list>
     </v-navigation-drawer>
+    <!-- src="https://picsum.photos/1354/128?random.webp" -->
     <v-app-bar
-      color="gradient"
+      color="skygradient"
       dark
       shrink-on-scroll
       prominent
-      src="https://picsum.photos/1920/1080?random"
+      :src="
+        require(`~/assets/images/articles/ryan-hutton-Jztmx9yqjBw-unsplash.jpg?resize&size=300&format=webp`)
+      "
       fade-img-on-scroll
       scroll-target="#scrolling-techniques-5"
       scroll-threshold="500"

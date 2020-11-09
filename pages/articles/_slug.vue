@@ -3,11 +3,21 @@
     class="flex lg:h-screen w-screen lg:overflow-hidden xs:flex-col lg:flex-row"
   >
     <div class="relative lg:w-1/2 xs:w-full xs:h-84 lg:h-full post-left">
+      <!-- :src="article.img" -->
       <v-img
-        :src="require(`~/assets/images/articles/${article.img}`)"
         :alt="article.alt"
+        :src="require(`~/assets/images/articles/${article.img}`)"
         class="absolute h-full w-full object-cover"
-      />
+        aspect-ratio="2"
+      >
+        <template v-slot:placeholder>
+          <v-row class="fill-height ma-0" align="center" justify="center">
+            <v-progress-circular indeterminate></v-progress-circular>
+          </v-row>
+        </template>
+      </v-img>
+
+      <slot v-if="err" name="error">Something went wrong</slot>
       <div class="overlay"></div>
       <div class="absolute top-32 left-32 text-white">
         <NuxtLink to="/"><Logo /></NuxtLink>
