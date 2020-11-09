@@ -3,7 +3,7 @@
     <!-- Icons purchased via Iconfinder under Basic License -->
 
     <body class="permission_denied">
-      <div id="tsparticles" class="particles-js ma-0 pa-0"></div>
+      <div :id="instanceid" class="particles-js ma-0 pa-0"></div>
       <div class="denied__wrapper">
         <h1>404</h1>
         <h3>Looks like you got lost in another planet...</h3>
@@ -250,7 +250,9 @@
         </svg>
 
         <div class="center-button">
+          <!-- to=>a href / nuxt=>nuxt-link -->
           <v-btn to="/">Go Back Home</v-btn>
+          <!-- if javascript broke, nuxt-link won't work! -->
         </div>
 
         <svg
@@ -420,15 +422,11 @@
 
 .particle-error,
 .permission_denied,
-#tsparticles {
+.particles-js {
   width: 100%;
   height: 100%;
   margin: 0px !important;
-}
-
-#tsparticles {
-  position: fixed !important;
-  opacity: 0.23;
+  position: absolute;
 }
 
 .permission_denied {
@@ -586,11 +584,9 @@
 import { tsParticles } from 'tsparticles'
 /* eslint-disable */
 export default {
-  props: {
-  },
   data () {
     return {
-      id: 'particles-instance'
+      instanceid: 'particles-instance-' + Math.floor(Math.random() * 5000)
     }
   },
   mounted () {
@@ -601,7 +597,7 @@ export default {
   },
   methods: {
     initParticleJS () {
-    tsParticles.load("tsparticles", {
+    tsParticles.load(this.instanceid, {
           "particles": {
             "number": {
               "value": 60,
