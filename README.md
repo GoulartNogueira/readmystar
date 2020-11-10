@@ -1,5 +1,15 @@
 # readmystar
 
+This is a repository for [Read My Star](readmystar.com/).
+An astrology website built in [Nuxt.js](https://nuxtjs.org).
+Hosted in [Vercel](vercel.com/)
+And some great technologies, like:
+- [Vuetify](vuetifyjs.com/)
+- [PWA](https://pwa.nuxtjs.org/)
+- [tsparticles](https://particles.matteobruni.it/)
+- [Image Optimizer](@aceforth/nuxt-optimized-images)
+
+
 ## Build Setup
 
 ```bash
@@ -16,5 +26,3 @@ $ npm run start
 # generate static project
 $ npm run generate
 ```
-
-For detailed explanation on how things work, check out [Nuxt.js docs](https://nuxtjs.org).
