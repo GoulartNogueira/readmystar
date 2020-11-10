@@ -32,12 +32,12 @@
       shrink-on-scroll
       prominent
       :src="
-        require(`~/assets/images/articles/ryan-hutton-Jztmx9yqjBw-unsplash.jpg`)
+        require(`~/assets/images/articles/ryan-hutton-Jztmx9yqjBw-unsplash.jpg?size=1300&format=webp`)
+      "
+      :lazy-src="
+        require(`~/assets/images/articles/ryan-hutton-Jztmx9yqjBw-unsplash.jpg?size=60&format=webp`)
       "
       fade-img-on-scroll
-      scroll-target="#scrolling-techniques-5"
-      scroll-threshold="500"
-      app
     >
       <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
       <v-btn icon @click.stop="fixed = !fixed">
@@ -113,7 +113,7 @@ export default {
       miniVariant: false,
       right: true,
       rightDrawer: false,
-      title: 'Vuetify.js',
+      title: 'Read My Star',
     }
   },
 }
