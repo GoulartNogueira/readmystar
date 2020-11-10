@@ -27,6 +27,7 @@
     </v-navigation-drawer>
     <!-- src="https://picsum.photos/1354/128?random.webp" -->
     <v-app-bar
+      fixed
       color="skygradient"
       dark
       shrink-on-scroll
@@ -38,30 +39,27 @@
         require(`~/assets/images/articles/ryan-hutton-Jztmx9yqjBw-unsplash.jpg?size=60&format=webp`)
       "
       fade-img-on-scroll
+      scroll-threshold="500"
+      app
     >
       <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
       <v-btn icon @click.stop="fixed = !fixed">
         <v-icon>mdi-minus</v-icon>
       </v-btn>
       <v-toolbar-title v-text="title" />
-      <v-spacer />
+      <!-- <v-spacer />
       <v-btn to="/articles"> <v-icon>mdi-book</v-icon> Articles </v-btn>
-      <v-btn to="/about"> <v-icon>mdi-chart-bubble</v-icon> About </v-btn>
+      <v-btn to="/about"> <v-icon>mdi-chart-bubble</v-icon> About </v-btn> -->
       <!-- <v-btn icon @click.stop="rightDrawer = !rightDrawer">
         <v-icon>mdi-menu</v-icon>
       </v-btn> -->
     </v-app-bar>
-    <v-sheet
-      id="scrolling-techniques-5"
-      class="overflow-y-auto"
-      max-height="600"
-    >
-      <v-main>
-        <v-container>
-          <nuxt />
-        </v-container>
-      </v-main>
-    </v-sheet>
+    <v-main>
+      <v-container>
+        <nuxt />
+      </v-container>
+    </v-main>
+    <main-footer />
     <!-- <v-navigation-drawer v-model="rightDrawer" :right="right" temporary fixed>
       <v-list>
         <v-list-item @click.native="right = !right">
@@ -76,7 +74,6 @@
       <span>&copy; {{ new Date().getFullYear() }}</span>
     </v-footer> -->
     <!-- </main-navbar> -->
-    <main-footer />
   </v-app>
 </template>
 
