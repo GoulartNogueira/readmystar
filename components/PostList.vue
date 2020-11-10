@@ -26,10 +26,10 @@
           <v-img
             v-if="article.img"
             :src="
-              require(`~/assets/images/articles/${article.img}?size=400&format=webp`)
+              require(`~/assets/images/articles/${article.img}?size=564&format=webp`)
             "
             :lazy-src="
-              require(`~/assets/images/articles/${article.img}?size=40`)
+              require(`~/assets/images/articles/${article.img}?size=60`)
             "
             class="h-48 xxlmin:w-1/2 xxlmax:w-full object-cover"
             aspect-ratio="2.75"
@@ -81,12 +81,6 @@ export default {
   },
 }
 </script>
-
-<style scoped>
-img[lazy='loading'] {
-  filter: blur(15px);
-}
-</style>
 
 <style class="postcss">
 .article-card {
