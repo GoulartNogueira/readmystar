@@ -7,16 +7,10 @@
     src: local("OpenSans"), url(~assets/fonts/Open_Sans/OpenSans-Regular.ttf) format("truetype");
   }
 */
-h1 {
+h1,h2, v-toolbar-title {
   font-family: 'Modern Antiqua';
 }
-h2 {
-  font-family: 'Modern Antiqua';
-}
-h3 {
-  font-family: 'David Libre';
-}
-v-list-item-title {
+h3, v-list-item-title {
   font-family: 'David Libre';
 }
 html, body, p{

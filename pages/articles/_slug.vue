@@ -3,27 +3,29 @@
     class="flex lg:h-screen w-screen lg:overflow-hidden xs:flex-col lg:flex-row"
   >
     <div class="relative lg:w-1/2 xs:w-full xs:h-84 lg:h-full post-left">
-      <v-img
-        :alt="article.alt"
-        :src="
-          require(`~/assets/images/articles/${article.img}?size=1300&format=webp`)
-        "
-        :lazy-src="
-          require(`~/assets/images/articles/${article.img}?size=400&format=webp`)
-        "
-        class="absolute h-full w-full object-cover"
-        aspect-ratio="2"
-      >
-        <template v-slot:placeholder>
-          <v-row class="fill-height ma-0" align="center" justify="center">
-            <v-progress-circular indeterminate></v-progress-circular>
-          </v-row>
-        </template>
-      </v-img>
+      <v-lazy>
+        <v-img
+          :alt="article.alt"
+          :src="
+            require(`~/assets/images/articles/${article.img}?size=1300&format=webp`)
+          "
+          :lazy-src="
+            require(`~/assets/images/articles/${article.img}?size=400&format=webp`)
+          "
+          class="absolute h-full w-full object-cover"
+          aspect-ratio="2"
+        >
+          <template v-slot:placeholder>
+            <v-row class="fill-height ma-0" align="center" justify="center">
+              <v-progress-circular indeterminate></v-progress-circular>
+            </v-row>
+          </template>
+        </v-img>
+      </v-lazy>
 
       <slot v-if="err" name="error">Something went wrong</slot>
       <div class="overlay"></div>
-      <div class="absolute top-32 left-32 text-white">
+      <!-- <div class="absolute top-32 left-32 text-white">
         <NuxtLink to="/"><Logo /></NuxtLink>
         <div class="mt-16 -mb-3 flex uppercase text-sm">
           <p class="mr-3">
@@ -42,16 +44,7 @@
             </span>
           </NuxtLink>
         </span>
-      </div>
-      <div class="flex absolute top-3rem right-3rem">
-        <NuxtLink
-          to="/articles"
-          class="mr-8 self-center text-white font-bold hover:underline"
-        >
-          All articles
-        </NuxtLink>
-        <AppSearchInput />
-      </div>
+      </div> -->
     </div>
     <div
       class="relative xs:py-8 xs:px-8 lg:py-32 lg:px-16 lg:w-1/2 xs:w-full h-full overflow-y-scroll markdown-body post-right custom-scroll"
@@ -83,6 +76,15 @@
       </nav>
       <!-- content from markdown -->
       <nuxt-content :document="article" />
+      <div class="flex absolute top-3rem right-3rem">
+        <NuxtLink
+          to="/articles"
+          class="mr-8 self-center text-white font-bold hover:underline"
+        >
+          ← Back to all articles
+        </NuxtLink>
+        <AppSearchInput />
+      </div>
     </div>
   </article>
 </template>

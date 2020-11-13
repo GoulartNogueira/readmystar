@@ -5,15 +5,13 @@ img: jonathan-pielmayer-1qwNwLsOquo-unsplash.jpg
 alt: inspiring image of person looking at the stars in the horizon
 author: 
   name: GPT2 & André Goulart
-  bio: I've been working with GPT2 to achieve wonderfull things!
-  img: /andre.jpg
 tags: 
   - astrology
 ---
 
-##Astrology Has Been Invented Again!
+## Astrology Has Been Invented Again!
 
-###We help you to read your stars so you can write your own story.
+### We help you to read your stars so you can write your own story.
 
 In a world of seven billion people, what makes your life any different from anyone else's?
 What are the characteristics that define you? Your personality, your traits, and your experiences all shape who you are and what you will become.
