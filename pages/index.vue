@@ -88,7 +88,18 @@
         </form>
       </v-col>
     </v-row>
-    <StarReader v-if="ResponseAvailable" :my-chart="MyChart" />
+    <v-tabs v-model="ReaderMode" center-active fixed-tabs>
+      <v-tab>Basic Mode</v-tab>
+      <v-tab>Story Mode</v-tab>
+    </v-tabs>
+    <v-tabs-items v-model="ReaderMode">
+      <v-tab-item>
+        <BasicReader v-if="ResponseAvailable" :my-chart="MyChart" />
+      </v-tab-item>
+      <v-tab-item>
+        <StoryReader v-if="ResponseAvailable" :my-chart="MyChart" />
+      </v-tab-item>
+    </v-tabs-items>
     <LearnMore v-if="false" />
   </div>
 </template>
@@ -102,7 +113,8 @@
 <script>
 import DatePicker from '~/components/DatePicker.vue'
 import TimePicker from '~/components/TimePicker.vue'
-import StarReader from '~/pages/StarReaderEn.vue'
+import BasicReader from '~/pages/StarReader/Basic.vue'
+import StoryReader from '~/pages/StarReader/Story.vue'
 import LearnMore from '~/components/LearnMore.vue'
 
 export default {
@@ -110,7 +122,8 @@ export default {
   components: {
     TimePicker,
     DatePicker,
-    StarReader,
+    StoryReader,
+    BasicReader,
     LearnMore,
   },
   data: () => ({
@@ -127,6 +140,7 @@ export default {
     citymap: null,
     citydescription: null,
     CityRules: [(value) => !!value || 'Obrigatório.'],
+    ReaderMode: 'Basic',
   }),
   methods: {
     fetch_my_map() {
